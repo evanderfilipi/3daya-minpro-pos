@@ -1,0 +1,7 @@
+
+create table supplier(
+        id int,
+        supplier_name character(64),
+        supplier_code character(64)
+);
+
