@@ -1,0 +1,5 @@
+create table nyoba(
+	id int,
+	nyoba__name character(64),
+	nyoba__desc character(64)
+);
