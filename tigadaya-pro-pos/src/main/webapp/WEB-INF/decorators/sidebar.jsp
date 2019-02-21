@@ -8,7 +8,7 @@
 					alt="User Image">
 			</div>
 			<div class="pull-left info">
-				<p>Evander Filipi</p>
+				<p>Kelompok 1 - POS</p>
 				<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
 			</div>
 		</div>
@@ -35,16 +35,16 @@
 				</span>
 			</a>
 				<ul class="treeview-menu">
-					<li><a href="${contextName}/category"><i
-							class="fa fa-paperclip"></i> Category</a></li>
-					<li><a href="${contextName}/packages"><i class="fa fa-building"></i>
-							Packages</a></li>
-					<li><a href="${contextName}/product"><i class="fa fa-arrows-alt"></i>
-							Product</a></li>
-					<li><a href="${contextName}/supplier"><i class="fa fa-users "></i>
+					<li><a href="#"><i
+							class="fa fa-users"></i> Employee</a></li>
+					<li><a href="#"><i class="fa fa-arrows-alt"></i>
+							Category</a></li>
+					<li><a href="${contextName}/supplier"><i class="fa fa-building"></i>
 							Supplier</a></li>
-					<li><a href="${contextName}/po/"><i class="fa fa-calendar "></i>
-							Purchase Order</a></li>							
+					<li><a href="#"><i class="fa fa-paperclip "></i>
+							Outlet</a></li>
+					<li><a href="#"><i class="fa fa-calendar "></i>
+							Item</a></li>							
 				</ul></li>
 			<!-- <li class="treeview"><a href="#"> <i class="fa fa-files-o"></i>
 					<span>Layout Options</span> <span class="pull-right-container">

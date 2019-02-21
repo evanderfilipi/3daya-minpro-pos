@@ -194,7 +194,7 @@
 				<li class="dropdown user user-menu"><a href="#"
 					class="dropdown-toggle" data-toggle="dropdown"> <img
 						src="${contextName}/resources/dist/img/java.jpg" class="user-image"
-						alt="User Image"> <span class="hidden-xs">Evander Filipi</span>
+						alt="User Image"> <span class="hidden-xs">Kelompok 1 - POS</span>
 				</a>
 					<ul class="dropdown-menu">
 						<!-- User image -->
@@ -202,8 +202,8 @@
 							class="img-circle" alt="User Image">
 
 							<p>
-								Evander Filipi - Web Developer <small>Member since
-									Jan. 2019</small>
+								Kelompok 1 - POS <small>Member since
+									Feb. 2019</small>
 							</p></li>
 						<!-- Menu Body -->
 						<li class="user-body">

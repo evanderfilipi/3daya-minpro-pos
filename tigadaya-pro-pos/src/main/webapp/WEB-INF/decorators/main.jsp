@@ -68,7 +68,7 @@
 			<b>Version</b> 2.4.0
 		</div>
 		<strong>Copyright &copy; 2019 <a
-			href="https://adminlte.io">Evander Filipi</a>.
+			href="https://adminlte.io">Kelompok 1 - POS</a>.
 		</strong> All rights reserved. </footer>
 
 		<!-- Control Sidebar -->
