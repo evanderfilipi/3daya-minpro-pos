@@ -1,0 +1,8 @@
+langkah-langkah push ke github:
+
+--> git add *
+
+--> git commit -m "pesan untuk update/push project"
+
+--> git push origin master
+
