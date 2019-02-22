@@ -47,7 +47,7 @@ public class SupplierModel {
 	private Integer regionId;
 	
 	@Column(name="district_id")
-	private Integer districId;
+	private Integer districtId;
 	
 	@Column(name="postal_code")
 	private String postalCode;
@@ -125,12 +125,12 @@ public class SupplierModel {
 		this.regionId = regionId;
 	}
 
-	public Integer getDistricId() {
-		return districId;
+	public Integer getDistrictId() {
+		return districtId;
 	}
 
-	public void setDistricId(Integer districId) {
-		this.districId = districId;
+	public void setDistrictId(Integer districtId) {
+		this.districtId = districtId;
 	}
 
 	public String getPostalCode() {
@@ -153,8 +153,15 @@ public class SupplierModel {
 		return createdOn;
 	}
 
-	public void setCreatedOn(Date createdOn) {
-		this.createdOn = createdOn;
+	public void setCreatedOn(String createdOn) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date creOn = null;
+		try {
+			creOn = format.parse(createdOn);
+		} catch (Exception e) {
+			creOn = null;
+		}
+		this.createdOn = creOn;
 	}
 
 	public Integer getModifiedBy() {
@@ -169,8 +176,15 @@ public class SupplierModel {
 		return modifiedOn;
 	}
 
-	public void setModifiedOn(Date modifiedOn) {
-		this.modifiedOn = modifiedOn;
+	public void setModifiedOn(String modifiedOn) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date modOn = null;
+		try {
+			modOn = format.parse(modifiedOn);
+		} catch (Exception e) {
+			modOn = null;
+		}
+		this.modifiedOn = modOn;
 	}
 
 	public Boolean getActive() {
