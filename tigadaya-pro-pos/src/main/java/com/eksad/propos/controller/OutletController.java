@@ -17,4 +17,14 @@ public class OutletController {
 	public String index() {
 		return "outlet/index";
 	}
+	
+	@RequestMapping(value="/outlet/create")
+	public String create() {
+		return "outlet/create";
+	}
+	
+	@RequestMapping(value="/outlet/edit")
+	public String edit() {
+		return "outlet/edit";
+	}
 }

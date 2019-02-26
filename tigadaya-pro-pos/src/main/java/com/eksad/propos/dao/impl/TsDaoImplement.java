@@ -9,55 +9,48 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.eksad.propos.dao.OutletDao;
-import com.eksad.propos.model.OutletModel;
+import com.eksad.propos.dao.TsDao;
+import com.eksad.propos.model.TsModel;
 
 @Repository
-public class OutletDaoImpl implements OutletDao {
+public class TsDaoImplement implements TsDao {
 	
 	@Autowired
 	private SessionFactory sessionFactory;
 
 	@Override
-	public List<OutletModel> getList() {
+	public List<TsModel> getList() {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "select om from OutletModel om"; //order by om.code
+		String hql = "select ts from TsModel ts order by ts.id";
 		Query query = session.createQuery(hql);
-		List<OutletModel> result = query.getResultList();
+		List<TsModel> result = query.getResultList();
 		return result;
 	}
 
 	@Override
-	public List<OutletModel> search(String key) {
+	public List<TsModel> search(String key) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "select om from OutletModel om where om.name like :keySearch";
+		String hql = "select ts from TsModel ts where ts.toOutlet like :keySearch";
 		Query query = session.createQuery(hql);
 		query.setParameter("keySearch", "%"+key+"%");
-		List<OutletModel> result = query.getResultList();
+		List<TsModel> result = query.getResultList();
 		return result;
 	}
 
 	@Override
-	public OutletModel getById(Integer id) {
+	public List<TsModel> getById(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
-		String hql = "select om from OutletModel om where om.id=:id ";
+		String hql = "select ts from TsModel ts where ts.toOutlet=:id ";
 		Query query = session.createQuery(hql);
 		query.setParameter("id", id);
-		OutletModel result = (OutletModel)query.getSingleResult();
+		List<TsModel> result = query.getResultList();
 		return result;
 	}
 
 	@Override
-	public void insert(OutletModel model) {
+	public void insert(TsModel model) {
 		Session session = sessionFactory.getCurrentSession();
 		session.save(model);
-	}
-
-	@Override
-	public void update(OutletModel model) {
-		Session session = sessionFactory.getCurrentSession();
-		session.update(model);
-		
 	}
 
 }
