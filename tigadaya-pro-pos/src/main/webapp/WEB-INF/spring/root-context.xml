@@ -12,16 +12,16 @@
     http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
-	<context:component-scan base-package="com.eksad.pos.model" />
-	<context:component-scan base-package="com.eksad.pos.dao" />
-	<context:component-scan base-package="com.eksad.pos.service" />
+	<context:component-scan base-package="com.eksad.propos.model" />
+	<context:component-scan base-package="com.eksad.propos.dao" />
+	<context:component-scan base-package="com.eksad.propos.service" />
 	
 	<mvc:annotation-driven>
         <mvc:message-converters>
             <!-- Use the HibernateAware mapper instead of the default -->
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
                 <property name="objectMapper">
-                    <bean class="com.eksad.pos.mapper.HibernateAwareObjectMapper" />
+                    <bean class="com.eksad.propos.mapper.HibernateAwareObjectMapper" />
                 </property>
             </bean>
         </mvc:message-converters>
@@ -49,7 +49,7 @@
 	<bean class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"
 		id="sessionFactory">
 		<property name="dataSource" ref="dataSource"></property>
-		<property name="packagesToScan" value="com.eksad.pos.model" />
+		<property name="packagesToScan" value="com.eksad.propos.model" />
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">${hibernate.dialect}</prop>

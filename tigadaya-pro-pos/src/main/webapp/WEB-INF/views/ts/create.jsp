@@ -45,5 +45,30 @@
 <!-- Form Selesai -->
 
 <script>
- functio
+$(function(){
+	loadOutlet();
+});
+
+function loadOutlet($form, $selected){
+	$.ajax({
+		url:'${contextName}/api/ts/',
+		type:'get',
+		// data type berupa JSON
+		dataType:'json',
+		success : function(result){
+			// empty data first
+			$("#toOutlet").empty();
+			$("#toOutlet").append('<option value="">To Outlet</option>');
+			// looping data
+			$.each(result, function(index, outlet){
+				if($selected == outlet.id){
+					$("#toOutlet").append('<option value="'+ outlet.id +'" selected="selected">'+ outlet.name +'</option>');
+				} else {
+					$("#toOutlet").append('<option value="'+ outlet.id +'">'+ outlet.name +'</option>');
+				}
+			});
+		}
+	});
+}
+
 </script>
