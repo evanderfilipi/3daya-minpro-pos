@@ -22,4 +22,24 @@ public class SupplierServiceImpl implements SupplierService {
 		return this.supDao.getList();
 	}
 
+	@Override
+	public List<SupplierModel> search(String key) {
+		return this.supDao.search(key);
+	}
+
+	@Override
+	public void insert(SupplierModel model) {
+		this.supDao.insert(model);
+	}
+
+	@Override
+	public void update(SupplierModel model) {
+		this.supDao.update(model);
+	}
+
+	@Override
+	public SupplierModel getById(Integer id) {
+		return this.supDao.getById(id);
+	}
+
 }

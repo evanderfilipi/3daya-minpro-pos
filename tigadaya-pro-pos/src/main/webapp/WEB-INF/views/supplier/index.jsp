@@ -6,9 +6,9 @@
 		<br/><br/>
 		<!-- <a href="packages/create" class="btn btn-success pull-right"><i class="fa fa-plus-square"></i> Add</a> -->
 		<div class="col-md-3">
-		<input type="text" class="form-control" name="search" placeholder="Search"/>
+		<input type="text" class="form-control" id="search" placeholder="Search" onKeypress="cari();"/>
 		</div>
-		<button type="button" class="btn btn-success pull-right" id="btn-add">
+		<button type="button" class="btn btn-success pull-right" id="btn-add" style="margin-right: 10px;">
 			<i class="fa fa-plus"></i> Create
 		</button>
 	</div>
@@ -23,7 +23,7 @@
 					<th>#</th>
 				</tr>
 			</thead>
-			<tbody id="list-data">
+			<tbody id="list-supplier">
 				
 			</tbody>
 		</table>
@@ -60,7 +60,7 @@ function loadData(){
 		dataType:'json',
 		success : function(result){
 			//kosong data di table
-			$("#list-data").empty();
+			$("#list-supplier").empty();
 			// looping data dengan jQuery
 			$.each(result, function(index, item){
 				var dataRow ='<tr>'+
@@ -69,15 +69,255 @@ function loadData(){
 					'<td>'+ item.phone+'</td>'+
 					'<td>'+ item.email+'</td>'+
 					'<td class="col-md-1">'+
-						'<button type="button" class="btn btn-detail btn-info btn-xs" value="'+ item.id +'"><i class="fa fa-eye"></i> Edit</button> '+
+						'<button type="button" class="btn btn-edit btn-info btn-xs" value="'+ item.id +'"><i class="fa fa-eye"></i> Edit</button> '+
 					'</td>'+
 					'</tr>';
-				$("#list-data").append(dataRow);
+				$("#list-supplier").append(dataRow);
 			});
 			// menampilkan data ke console => F12
 			console.log(result);
 		}
 	});
+}
+
+function cari(){
+	var cari = $('#search').val();
+	$.ajax({
+		url:'${contextName}/api/supplier/search/'+cari,
+		type:'get',
+		dataType:'json',
+		success : function(result){
+			//kosongkan data di table
+			$("#list-supplier").empty();
+			$.each(result, function(index, item){
+				var dataRows ='<tr>'+
+					'<td>'+ item.name +'</td>'+
+					'<td>'+ item.address+'</td>'+
+					'<td>'+ item.phone+'</td>'+
+					'<td>'+ item.email+'</td>'+
+					'<td class="col-md-1">'+
+						'<button type="button" class="btn btn-edit btn-info btn-xs" value="'+ item.id +'"><i class="fa fa-eye"></i> Edit</button> '+
+					'</td>'+
+					'</tr>';
+				$("#list-supplier").append(dataRows);
+			});
+			console.log(result);
+		}
+	});
+}
+
+$('#btn-add').click(function(){
+	$.ajax({
+		url :'${contextName}/supplier/create/',
+		tipe :'get',
+		dataType :'html',
+		success : function(result){
+			//mencari element yang ada di modal-evander
+			//mengganti judul modal
+			$("#modal-title").html("Supplier Detail");
+			//mengisi content dengan variable result
+			$("#modal-data").html(result);
+			//menampilkan modal pop up
+			$("#modal-evander").modal('show');
+			
+			loadProvince($("#modal-data"), 0);
+		}
+	});
+});
+
+function loadProvince($form, $selected){
+	$.ajax({
+		
+		url:'${contextName}/api/province/',
+		type:'get',
+		// data type berupa JSON
+		dataType:'json',
+		success : function(result){
+			// empty data first
+			$("#provinceId").empty();
+			$("#provinceId").append('<option value="">Province</option>');
+			// looping data
+			$.each(result, function(index, province){
+				if($selected == province.id){
+					$("#provinceId").append('<option value="'+ province.id +'" selected="selected">'+ province.name +'</option>');
+				} else {
+					$("#provinceId").append('<option value="'+ province.id +'">'+ province.name +'</option>');
+				}
+			});
+		}
+	});
+}
+
+function loadRegion($form, $selected, $getRid){
+	$.ajax({
+		
+		url:'${contextName}/api/region/id/'+$getRid,
+		type:'get',
+		// data type berupa JSON
+		dataType:'json',
+		success : function(result){
+			// empty data first
+			$("#regionId").empty();
+			$("#regionId").append('<option value="">Region</option>');
+			// looping data
+			$.each(result, function(index, region){
+				if($selected == region.id){
+					$("#regionId").append('<option value="'+ region.id +'" selected="selected">'+ region.name +'</option>');
+				} else {
+					$("#regionId").append('<option value="'+ region.id +'">'+ region.name +'</option>');
+				}
+			});
+		}
+	});
+}
+
+function loadDistrict($form, $selected, $getDid){
+	$.ajax({
+		
+		url:'${contextName}/api/district/id/'+$getDid,
+		type:'get',
+		// data type berupa JSON
+		dataType:'json',
+		success : function(result){
+			// empty data first
+			$("#districtId").empty();
+			$("#districtId").append('<option value="">District</option>');
+			// looping data
+			$.each(result, function(index, district){
+				if($selected == district.id){
+					$("#districtId").append('<option value="'+ district.id +'" selected="selected">'+ district.name +'</option>');
+				} else {
+					$("#districtId").append('<option value="'+ district.id +'">'+ district.name +'</option>');
+				}
+			});
+		}
+	});
+}
+
+function getRegionById(rId){
+	$.ajax({
+		url:'${contextName}/api/region/id/'+rId,
+		type:'get',
+		dataType:'json',
+		success:function(result){
+			$('#modal-data').find("#regionId").empty();
+			$('#modal-data').find("#regionId").append('<option value="">Region</option>');
+			// looping data
+			$.each(result, function(index, region){
+				$('#modal-data').find("#regionId").append('<option value="'+ region.id +'">'+ region.name +'</option>');
+			});
+		}
+	});
+}
+
+function getDistrictById(dId){
+	$.ajax({
+		url:'${contextName}/api/district/id/'+dId,
+		type:'get',
+		dataType:'json',
+		success:function(result){
+			$('#modal-data').find("#districtId").empty();
+			$('#modal-data').find("#districtId").append('<option value="">District</option>');
+			// looping data
+			$.each(result, function(index, district){
+				$('#modal-data').find("#districtId").append('<option value="'+ district.id +'">'+ district.name +'</option>');
+			});
+		}
+	});
+}
+
+function addData($form){
+	// memangil method getFormData dari file
+	// resources/dist/js/map-form-objet.js
+	var dataForm = getFormData($form);
+	$.ajax({
+		// url ke api/packages/
+		url:'${contextName}/api/supplier/',
+		type:'post',
+		// data type berupa JSON
+		dataType:'json',
+		// mengirim parameter data
+		data:JSON.stringify(dataForm),
+		// mime type 
+		contentType: 'application/json',
+		success : function(result){
+			//menutup modal
+			$("#modal-evander").modal('hide');
+			// panggil method load data, untuk melihat data terbaru
+			loadData();
+		}
+	});
+	console.log(dataForm);
+}
+
+function getData(dataId){
+	// panggil API
+	$.ajax({
+		// url ke api/product/
+		url:'${contextName}/api/supplier/'+dataId,
+		type:'get',
+		// data type berupa JSON
+		dataType:'json',
+		success : function(dataApi){
+			$('#modal-data').find('#id').val(dataApi.id);
+			$('#modal-data').find('#name').val(dataApi.name);
+			$('#modal-data').find('#address').val(dataApi.address);
+			$('#modal-data').find('#postalCode').val(dataApi.postalCode);
+			$('#modal-data').find('#phone').val(dataApi.phone);
+			$('#modal-data').find('#email').val(dataApi.email);
+			$('#modal-data').find('#active').val(dataApi.active);
+			
+			loadProvince($("#modal-data"), dataApi.provinceId);
+			loadRegion($("#modal-data"), dataApi.regionId, dataApi.provinceId);
+			loadDistrict($("#modal-data"), dataApi.districtId, dataApi.regionId);
+			console.log(dataApi);
+		}
+	});
+}
+
+$('#list-supplier').on('click','.btn-edit', function(){
+	var sid = $(this).val();
+	$.ajax({
+		url:'${contextName}/supplier/edit/',
+		type:'get',
+		dataType:'html',
+		success : function(result){
+			//mengganti judul modal
+			$("#modal-title").html("Supplier Detail");
+			//mengisi content dengan variable result
+			$("#modal-data").html(result);
+			//menampilkan modal pop up
+			$("#modal-evander").modal('show');
+			// panggil method getData				
+			
+			getData(sid);
+		}
+	});
+});
+
+// method untuk delete data
+function editData($form){
+	// memangil method getFormData dari file
+	// resources/dist/js/map-form-objet.js
+	var dataForm = getFormData($form);
+	$.ajax({
+		// url ke api/packages/
+		url:'${contextName}/api/supplier/',
+		type:'put',
+		// data type berupa JSON
+		dataType:'json',
+		// mengirim parameter data
+		data:JSON.stringify(dataForm),
+		// mime type 
+		contentType: 'application/json',
+		success : function(result){
+			//menutup modal
+			$("#modal-evander").modal('hide');
+			// panggil method load data, untuk melihat data terbaru
+			loadData();
+		}
+	});
+	console.log(dataForm);
 }
 	
 </script>

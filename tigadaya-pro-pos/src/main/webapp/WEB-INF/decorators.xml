@@ -6,6 +6,7 @@
 		<pattern>/resources/*</pattern>
 		<pattern>/outlet/*</pattern>
 		<pattern>/ts/*</pattern>
+		<pattern>/supplier/*</pattern>
 		
 	</excludes>
 
