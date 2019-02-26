@@ -1,6 +1,8 @@
 package com.eksad.propos.model;
 
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,6 +27,7 @@ public class CategoryModel {
 	@TableGenerator(name = "category_seq", table = "tbl_squence", pkColumnName = "seq_id", valueColumnName = "seq_value", initialValue = 0, allocationSize = 1)
 	private Integer id;
 
+	
 	@Column(name = "name")
 	private String name;
 
@@ -44,6 +47,8 @@ public class CategoryModel {
 
 	@Column(name = "active")
 	private Boolean active;
+	
+	
 
 	public Integer getId() {
 		return id;
