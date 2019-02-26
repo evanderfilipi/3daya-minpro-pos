@@ -15,4 +15,14 @@ public class ItemController {
 		return "item/create";
 	}
 	
+	@RequestMapping(value="/item/variant")
+	public String addVariant() {
+		return "/item/variant";
+	}
+	
+	@RequestMapping(value="/item/edit")
+	public String edit() {
+		return "item/edit";
+	}
+	
 }
