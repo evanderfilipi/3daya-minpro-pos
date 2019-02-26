@@ -22,4 +22,24 @@ public class OutletServiceImpl implements OutletService {
 		return this.dao.getList();
 	}
 
+	@Override
+	public List<OutletModel> search(String key) {
+		return this.dao.search(key);
+	}
+
+	@Override
+	public OutletModel getById(Integer id) {
+		return this.dao.getById(id);
+	}
+
+	@Override
+	public void insert(OutletModel model) {
+		this.dao.insert(model);
+	}
+
+	@Override
+	public void update(OutletModel model) {
+		this.dao.update(model);
+	}
+
 }

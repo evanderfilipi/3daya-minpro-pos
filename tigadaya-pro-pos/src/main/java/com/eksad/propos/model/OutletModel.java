@@ -1,16 +1,21 @@
 package com.eksad.propos.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -51,17 +56,23 @@ public class OutletModel {
 	@Column(name = "created_by")
 	private Integer createdBy;
 	
+	//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
 	@Column(name = "created_on")
 	private Date createdOn;
 	
 	@Column(name = "modified_by")
 	private Integer modifiedBy;
 	
+	//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
 	@Column(name = "modified_on")
 	private Date modifiedOn;
 	
 	@Column(name = "active")
 	private Boolean active;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="outlet")
+	private List<TsModel> listOutlet;
 
 	public Integer getId() {
 		return id;
@@ -174,5 +185,25 @@ public class OutletModel {
 	public void setActive(Boolean active) {
 		this.active = active;
 	}
+
+	public List<TsModel> getListOutlet() {
+		return listOutlet;
+	}
+
+	public void setListOutlet(List<TsModel> listOutlet) {
+		this.listOutlet = listOutlet;
+	}
+
+	
+	
+	/*
+	 *SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date modOn = null;
+		try {
+			modOn = format.parse(modifiedOn);
+		} catch (Exception e) {
+			modOn = null;
+		}
+this.modifiedOn = modOn; */
 
 }

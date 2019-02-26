@@ -16,4 +16,14 @@ public class SupplierController {
 	public String index() {
 		return "supplier/index";
 	}
+	
+	@RequestMapping(value="/supplier/create/")
+	public String create() {
+		return "supplier/create";
+	}
+	
+	@RequestMapping(value="/supplier/edit/")
+	public String edit() {
+		return "supplier/edit";
+	}
 }
