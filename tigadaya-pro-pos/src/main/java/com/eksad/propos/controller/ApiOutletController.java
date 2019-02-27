@@ -18,7 +18,7 @@ import com.eksad.propos.model.OutletModel;
 import com.eksad.propos.service.OutletService;
 
 @Controller
-public class ApiOutletController {
+public class ApiOutletController extends BaseController{
 	
 	//private Log log = LogFactory.getLog(getClass());
 
@@ -63,6 +63,7 @@ public class ApiOutletController {
 		ResponseEntity<OutletModel> result = null;
 		try {
 			OutletModel om = this.service.getById(outletId);
+			Integer createdBy = (Integer) this.getUserId();
 			result = new ResponseEntity<OutletModel>(om,HttpStatus.OK);
 		} catch (Exception e) {
 			//log.debug(e.getMessage(), e);
