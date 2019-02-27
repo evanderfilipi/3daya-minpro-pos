@@ -15,4 +15,9 @@ public class TsController {
 	public String create() {
 		return "ts/create";
 	}
+	
+	@RequestMapping(value="/ts/additem")
+	public String purchaseForm() {
+		return "ts/additem";
+	}
 }
