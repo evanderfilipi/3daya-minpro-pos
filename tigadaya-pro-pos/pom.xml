@@ -18,6 +18,9 @@
 		<org.hibernate-version>5.4.0.Final</org.hibernate-version>
 		<com.fasterxml.jackson-version>2.9.8</com.fasterxml.jackson-version>
 		<sitemesh-version>2.5-atlassian-11</sitemesh-version>
+		<org.springframework.security-version>4.2.11.RELEASE</org.springframework.security-version>
+
+
 	</properties>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
@@ -64,6 +67,15 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-hibernate5 -->
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-hibernate5</artifactId>
+			<version>${com.fasterxml.jackson-version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
+
 		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-hibernate5</artifactId>
