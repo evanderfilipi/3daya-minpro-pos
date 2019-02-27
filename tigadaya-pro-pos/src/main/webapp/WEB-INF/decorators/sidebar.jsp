@@ -41,13 +41,22 @@
 							Category</a></li>
 					<li><a href="${contextName}/supplier"><i class="fa fa-building"></i>
 							Supplier</a></li>
-					<li><a href="#"><i class="fa fa-paperclip "></i>
+					<li><a href="${contextName}/outlet"><i class="fa fa-paperclip "></i>
 							Outlet</a></li>
 					<li><a href="#"><i class="fa fa-calendar "></i>
 							Item</a></li>
+<<<<<<< HEAD
 					<li><a href="${contextName}/po"><i class="fa fa-tasks "></i>
 							Purchase Order</a></li>							
 				</ul></li>
+=======
+					<li><a href="${contextName}/ts"><i class="fa fa-paperclip "></i>
+							Transfer Stock</a></li>	
+											
+				</ul>				
+			</li>
+			<li><a href="${contextName }/logout">Logout</a></li>
+>>>>>>> b43e6ed2166d22855165258ce03bab8054b9a05f
 			<!-- <li class="treeview"><a href="#"> <i class="fa fa-files-o"></i>
 					<span>Layout Options</span> <span class="pull-right-container">
 						<span class="label label-primary pull-right">4</span>

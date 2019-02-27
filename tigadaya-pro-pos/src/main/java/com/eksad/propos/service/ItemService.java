@@ -4,9 +4,13 @@ import java.util.List;
 
 
 import com.eksad.propos.model.ItemModel;
+import com.eksad.propos.model.ItemForm;
 
 public interface ItemService {
 	
 	public List<ItemModel> getList();
-	public void insert(ItemModel model);
+	public List<ItemModel> search(String key);
+	public ItemModel getById(Integer id);
+	public void insert(ItemForm model);
+	public void update(ItemModel model);
 }
