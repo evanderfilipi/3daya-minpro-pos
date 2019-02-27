@@ -27,4 +27,37 @@ public class OutletDaoImpl implements OutletDao {
 		return result;
 	}
 
+	@Override
+	public List<OutletModel> search(String key) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "select om from OutletModel om where om.name like :keySearch";
+		Query query = session.createQuery(hql);
+		query.setParameter("keySearch", "%"+key+"%");
+		List<OutletModel> result = query.getResultList();
+		return result;
+	}
+
+	@Override
+	public OutletModel getById(Integer id) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "select om from OutletModel om where om.id=:id ";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", id);
+		OutletModel result = (OutletModel)query.getSingleResult();
+		return result;
+	}
+
+	@Override
+	public void insert(OutletModel model) {
+		Session session = sessionFactory.getCurrentSession();
+		session.save(model);
+	}
+
+	@Override
+	public void update(OutletModel model) {
+		Session session = sessionFactory.getCurrentSession();
+		session.update(model);
+		
+	}
+
 }

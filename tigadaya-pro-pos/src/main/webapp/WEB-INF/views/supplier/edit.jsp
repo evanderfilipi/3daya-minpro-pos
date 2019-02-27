@@ -74,15 +74,15 @@
 		</div>
 		
 		<input type="hidden" class="form-control" name="createdBy" value="1"/>
-		<input type="hidden" class="form-control" name="createdOn" value="2019-01-01"/>
+		<input type="hidden" class="form-control" name="createdOn" id="createdOn"/>
 		<input type="hidden" class="form-control" name="modifiedBy" value="2"/>
-		<input type="hidden" class="form-control" name="modifiedOn" value="2019-02-01"/>
+		<input type="hidden" class="form-control" name="modifiedOn" id="modifiedOn"/>
 		<input type="hidden" class="form-control" name="active" value="true"/>
 	</div>
 	
 	<div class="modal-footer">
-		<button type="button" onClick="editData($('#form-edit'))" class="btn btn-primary pull-right">Save</button>
-		<button type="button" class="btn btn-warning pull-right" style="margin-right: 15px;" data-dismiss="modal">Cancel</button>
+		<button type="button" onClick="editData($('#form-edit'))" class="btn btn-primary pull-right"><i class="fa fa-save"></i> Save</button>
+		<button type="reset" class="btn btn-danger pull-right" style="margin-right: 15px;"><i class="fa fa-times-circle"></i> Cancel</button>
 	</div>
 	</div>
 </form>

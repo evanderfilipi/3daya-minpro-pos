@@ -44,7 +44,9 @@
 					<li><a href="#"><i class="fa fa-paperclip "></i>
 							Outlet</a></li>
 					<li><a href="#"><i class="fa fa-calendar "></i>
-							Item</a></li>							
+							Item</a></li>
+					<li><a href="${contextName}/po"><i class="fa fa-tasks "></i>
+							Purchase Order</a></li>							
 				</ul></li>
 			<!-- <li class="treeview"><a href="#"> <i class="fa fa-files-o"></i>
 					<span>Layout Options</span> <span class="pull-right-container">
