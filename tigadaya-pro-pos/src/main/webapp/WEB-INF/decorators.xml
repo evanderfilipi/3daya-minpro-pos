@@ -4,6 +4,8 @@
     <!-- Any urls that are excluded will never be decorated by Sitemesh -->
 	<excludes>
 		<pattern>/resources/*</pattern>
+		<pattern>/category/*</pattern>
+		<pattern>/adjustment/*</pattern>
 		<pattern>/supplier/*</pattern>
 		<pattern>/po/*</pattern>
 		<pattern>/item/create</pattern>

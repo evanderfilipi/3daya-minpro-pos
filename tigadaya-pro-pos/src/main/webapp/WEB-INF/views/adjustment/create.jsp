@@ -94,7 +94,6 @@ function loadAdjustment(){
 	});
 }
 
-</script>
 
 	function addProduct($product){
 		var dataProduct = $product.serializeJSON();
@@ -122,3 +121,6 @@ function loadAdjustment(){
 	$('#list-detail').on('click','.btn-remove', function(){
 		$(this).closest('tr').remove();
 	});
+	
+	
+</script>

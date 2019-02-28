@@ -82,7 +82,7 @@
 							'<td>'+ item.name +'</td>'+
 							'<td>'+ item.id+'</td>'+
 							'<td class="col-md-1">'+
-								'<button type="button" class="btn btn-edit" value="'+ item.id +'"> <u>View</u> </button> '+
+								'<button type="button" class="btn btn-edit" value="'+ item.id +'"> <u>Edit</u> </button> '+
 							'</td>'+
 							'</tr>';
 						$("#list-data").append(dataRow);
