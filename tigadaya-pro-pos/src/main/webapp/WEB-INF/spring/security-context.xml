@@ -31,9 +31,9 @@
 		<access-denied-handler error-page="/403.html" />
 
 		<form-login login-page="/login.html"
-			default-target-url="/home.html" 
+			default-target-url="/" 
 			username-parameter="username"
-			password-parameter="password" 
+			password-parameter="password"
 			login-processing-url="/j_spring_security_check"
 			authentication-failure-url="/login.html?error" />
 

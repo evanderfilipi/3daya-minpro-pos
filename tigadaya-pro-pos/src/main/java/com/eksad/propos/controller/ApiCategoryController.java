@@ -116,7 +116,13 @@ public class ApiCategoryController {
 			log.debug(e.getMessage(), e);
 			result = new ResponseEntity<CategoryModel>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+<<<<<<< HEAD
 		return result;
 	}
 	
 }
+=======
+		
+		//coba aja
+}
+>>>>>>> 29b22fd6c7f81047b48c862bcd1b14994cb8ea19
