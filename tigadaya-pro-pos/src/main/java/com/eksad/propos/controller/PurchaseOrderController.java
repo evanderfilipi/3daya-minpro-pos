@@ -1,13 +1,15 @@
 package com.eksad.propos.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class PurchaseOrderController {
+public class PurchaseOrderController extends BaseController {
 
 	@RequestMapping(value = "/po")
-	public String index() {
+	public String index(Model model) {
+		model.addAttribute("username", this.getUserName());
 		return "purchase_order/index";
 	}
 	

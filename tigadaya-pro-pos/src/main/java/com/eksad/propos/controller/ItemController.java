@@ -1,12 +1,14 @@
 package com.eksad.propos.controller;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class ItemController {
+public class ItemController extends BaseController{
 
 	@RequestMapping(value="/item")
-	public String index() {
+	public String index(Model model) {
+		model.addAttribute("username", this.getUserName());
 		return "item/index";
 	}
 	

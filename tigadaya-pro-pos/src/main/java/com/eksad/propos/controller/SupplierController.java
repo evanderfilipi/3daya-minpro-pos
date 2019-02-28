@@ -2,18 +2,20 @@ package com.eksad.propos.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.eksad.propos.service.SupplierService;
 
 @Controller
-public class SupplierController {
+public class SupplierController extends BaseController{
 
 	@Autowired
 	private SupplierService service;
 	
 	@RequestMapping(value = "/supplier")
-	public String index() {
+	public String index(Model model) {
+		model.addAttribute("username", this.getUserName());
 		return "supplier/index";
 	}
 	

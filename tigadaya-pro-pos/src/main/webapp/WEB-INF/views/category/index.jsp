@@ -4,7 +4,7 @@
 %>
 <div class="box box-info">
 	<div class="box-header">
-		<h3 class="box-title">Category</h3>
+		<h3 class="box-title">Category ${username}</h3>
 	</div>
 	<div class="box-body">
 		<input type="text" name="Search" id="Search" placeholder="Search">

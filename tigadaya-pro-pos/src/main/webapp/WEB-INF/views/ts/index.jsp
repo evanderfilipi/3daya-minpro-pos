@@ -1,7 +1,7 @@
 <% request.setAttribute("contextName", request.getServletContext().getContextPath()); %>
 <div class="box box-info">
 	<div class="box-header">
-		<h3 class="box-title">Transfer Stock</h3>
+		<h3 class="box-title">Transfer Stock ${username}</h3>
 		<!-- div class="box-tools">
 			<button type="button" id="btn-add" class="btn btn-success btn-sm">
 				<i class="fa fa-plus"></i>

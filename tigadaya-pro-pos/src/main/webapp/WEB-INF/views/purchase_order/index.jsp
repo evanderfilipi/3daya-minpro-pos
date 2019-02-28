@@ -2,7 +2,7 @@
 <% request.setAttribute("contextName", request.getServletContext().getContextPath()); %>
 <div class="box box-info">
 	<div class="box-header">
-		<h3 class="box-title">Purchase Order</h3>
+		<h3 class="box-title">Purchase Order ${username}</h3>
 		<br/><br/>
 		<!-- <a href="packages/create" class="btn btn-success pull-right"><i class="fa fa-plus-square"></i> Add</a> -->
 		<div class="col-md-2">
