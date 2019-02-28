@@ -11,43 +11,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.eksad.propos.service.CategoryService;
 
 @Controller
-<<<<<<< HEAD
-public class CategoryController {
-	private Log log = LogFactory.getLog(getClass()); 
-=======
-public class CategoryController extends BaseController{
-
->>>>>>> 29b22fd6c7f81047b48c862bcd1b14994cb8ea19
+public class CategoryController extends BaseController {
+	private Log log = LogFactory.getLog(getClass());
 	@Autowired
 	private CategoryService service;
-	
-	@RequestMapping(value="/category")
-<<<<<<< HEAD
-	public String index() {	
-=======
+
+	@RequestMapping(value = "/category")
 	public String index(Model model) {
 		model.addAttribute("username", this.getUserName());
->>>>>>> 29b22fd6c7f81047b48c862bcd1b14994cb8ea19
+
 		return "category/index";
 	}
-	
-	@RequestMapping(value="/category/create")
+
+	@RequestMapping(value = "/category/create")
 	public String create() {
 		return "category/create";
 	}
-	
-	@RequestMapping(value="/category/edit")
+
+	@RequestMapping(value = "/category/edit")
 	public String edit() {
 		return "category/edit";
 	}
-	
-	@RequestMapping(value="/category/delete")
+
+	@RequestMapping(value = "/category/delete")
 	public String delete() {
 		return "category/delete";
 	}
-	@RequestMapping(value="/category/detail")
-	public String detail() {		
+
+	@RequestMapping(value = "/category/detail")
+	public String detail() {
 		return "category/detail";
 	}
-	
 }
