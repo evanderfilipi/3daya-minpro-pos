@@ -1,22 +1,24 @@
 <% request.setAttribute("contextName", request.getServletContext().getContextPath()); %>
 <div class="box box-info">
 	<div class="box-header">
-		<h3 class="box-title">Category</h3>
+		<h3 class="box-title">Adjustment</h3>
 	</div>
 		
 		<div class="box-body">
 		<div class="box-tools" style="margin-top: -10px">
-			<input type="text"  id="txt-search" placeholder="Search" onKeypress="cari($(this).val());"/>	
-			<button type="button" id="btn-add" class="btn btn-primary btn-sm pull-right">Create</button>
-	
+			<input type="date"  id="txt-search" placeholder="Tanggal" onKeypress="cari($(this).val());"/>	
+
+			<button type="button" id="btn-add" class="btn btn-primary  pull-right" style="margin-right: 10px">Create</button>
+				
 		</div>
 	</div>
 	<div class="box-body">
 		<table class="table">
 			<thead>
 				<tr>
-					<th>Category Name</th>
-					<th>Item Stocks</th>
+					<th>Adjustment Date</th>
+					<th>Notes</th>
+					<th>Status</th>
 					<th>#</th>
 				</tr>
 			</thead>
@@ -49,12 +51,12 @@
 	//ketika button add di click
 	$("#btn-add").click(function(){
 		$.ajax({
-			url:'${contextName}/category/create',
+			url:'${contextName}/adjustment/create',
 			type:'get',
 			dataType:'html',
 			success : function(result){
 				//mengganti judul modal
-				$("#modal-title").html("Add New Category");
+				$("#modal-title").html("Add New Adjustment");
 				//mengisi content dengan variable result
 				$("#modal-data").html(result);
 				//menampilkan modal pop up
@@ -66,9 +68,8 @@
 	//method loadData
 	function loadData(){
 		$.ajax({
-			
 			// url ke api/category/
-			url:'${contextName}/api/category/',
+			url:'${contextName}/api/adjustment/',
 			type:'get',
 			// data type berupa JSON
 			dataType:'json',
@@ -77,16 +78,15 @@
 				$("#list-data").empty();
 				// looping data dengan jQuery
 				$.each(result, function(index, item){
-					if(item.active){
 						var dataRow ='<tr>'+
-							'<td>'+ item.name +'</td>'+
-							'<td>'+ item.id+'</td>'+
+							'<td>'+ item.createdOn +'</td>'+
+							'<td>'+ item.notes+'</td>'+
+							'<td>'+ item.status+'</td>'+
 							'<td class="col-md-1">'+
 								'<button type="button" class="btn btn-edit" value="'+ item.id +'"> <u>View</u> </button> '+
 							'</td>'+
 							'</tr>';
 						$("#list-data").append(dataRow);
-					}
 				});
 				// menampilkan data ke console => F12
 				console.log(result);
@@ -94,49 +94,33 @@
 		});
 	}
 	
-	//method search
-	function cari(key){
-		//var cari = $('#name').val();
-		$.ajax({
-			// url ke api/category/
-			url:'${contextName}/api/category/search/'+key,
-			type:'get',
-			// data type berupa JSON
-			dataType:'json',
-			success : function(result){
-				//kosong data di table
-				$("#list-data").empty();
-				// looping data dengan jQuery
-				$.each(result, function(index, item){
-					var dataRow ='<tr>'+
-						'<td>'+ item.name +'</td>'+
-						'<td>'+ item.id+'</td>'+
-						'<td class="col-md-1">'+
-							
-							'<button type="button" class="btn btn-edit btn-warning btn-xs" value="'+ item.id +'"><i class="fa fa-edit"></i></button> '+
-						'</td>'+
-						'</tr>';
-					$("#list-data").append(dataRow);
-				});
-				// menampilkan data ke console => F12
-				console.log(result);
-			}
-		});
+	
+	function getDateToday() {
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
+		var yyyy = today.getFullYear();
+		if(dd<10) { dd = '0'+dd } 
+		if(mm<10) { mm = '0'+mm } 
+		return yyyy + '-' + mm + '-' + dd;
 	}
 	
 	// method untuk add data
 	function addData($form){
 		// memangil method getFormData dari file
 		// resources/dist/js/map-form-objet.js
-		var dataForm = getFormData($form);
+		var vnote = $($form).find("#notes").val();
+		var voutletId = $($form).find("#outletId").val();
+		var vStatus = $($form).find("#status").val();
+		//var dataForm = getFormData($form);
 		$.ajax({
 			// url ke api/category/
-			url:'${contextName}/api/category/',
+			url:'${contextName}/api/adjustment/',
 			type:'post',
 			// data type berupa JSON
 			dataType:'json',
 			// mengirim parameter data
-			data:JSON.stringify(dataForm),
+			data:'{"notes":"'+vnote+'","outletId":'+voutletId+',"status":"'+vStatus+'","createdOn":"'+getDateToday()+'"}',
 			// mime type 
 			contentType: 'application/json',
 			success : function(result){
@@ -154,7 +138,7 @@
 		// panggil API
 		$.ajax({
 			// url ke api/category/
-			url:'${contextName}/api/category/'+dataId,
+			url:'${contextName}/api/adjustment/'+dataId,
 			type:'get',
 			// data type berupa JSON
 			dataType:'json',
@@ -171,12 +155,12 @@
 	$('#list-data').on('click','.btn-edit', function(){
 		var vid = $(this).val();
 		$.ajax({
-			url:'${contextName}/category/edit',
+			url:'${contextName}/adjustment/edit',
 			type:'get',
 			dataType:'html',
 			success : function(result){
 				//mengganti judul modal
-				$("#modal-title").html("Edit Data Category");
+				$("#modal-title").html("Edit Data Adjustment");
 				//mengisi content dengan variable result
 				$("#modal-data").html(result);
 				//menampilkan modal pop up
@@ -194,7 +178,7 @@
 		var dataForm = getFormData($form);
 		$.ajax({
 			// url ke api/category/
-			url:'${contextName}/api/category/',
+			url:'${contextName}/api/adjustment/',
 			type:'put',
 			// data type berupa JSON
 			dataType:'json',
@@ -212,16 +196,36 @@
 		console.log(dataForm);
 	}
 	
-	// ketidak btn-delete di click
-	$('#list-data').on('click','.btn-delete', function(){
+	// ketidak btn-detail di click
+	$('#list-data').on('click','.btn-detail', function(){
 		var vid = $(this).val();
 		$.ajax({
-			url:'${contextName}/category/delete',
+			url:'${contextName}/adjustment/detail',
 			type:'get',
 			dataType:'html',
 			success : function(result){
 				//mengganti judul modal
-				$("#modal-title").html("Delete Data Category");
+				$("#modal-title").html("Detail Data Adjustment");
+				//mengisi content dengan variable result
+				$("#modal-data").html(result);
+				//menampilkan modal pop up
+				$("#modal-form").modal('show');
+				//panggil method
+				getData(vid);
+			}
+		});
+	});
+	
+	// ketidak btn-delete di click
+	$('#list-data').on('click','.btn-delete', function(){
+		var vid = $(this).val();
+		$.ajax({
+			url:'${contextName}/adjustment/delete',
+			type:'get',
+			dataType:'html',
+			success : function(result){
+				//mengganti judul modal
+				$("#modal-title").html("Delete Data Adjustment");
 				//mengisi content dengan variable result
 				$("#modal-data").html(result);
 				//menampilkan modal pop up
@@ -239,7 +243,7 @@
 		var vname = $($form).find("#name").val();
 		$.ajax({
 			// url ke api/category/
-			url:'${contextName}/api/category/',
+			url:'${contextName}/api/adjustment/',
 			// method http di controller
 			type:'put',
 			// data type berupa JSON
