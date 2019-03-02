@@ -5,18 +5,20 @@
 		<h3 class="box-title">Purchase Order ${username}</h3>
 		<br/><br/>
 		<!-- <a href="packages/create" class="btn btn-success pull-right"><i class="fa fa-plus-square"></i> Add</a> -->
-		<div class="col-md-2">
-			<input type="date" class="form-control" id="tanggalAwal" placeholder="yyyy-MM-dd"/>
+		<form class="form-inline">
+		<div class="picker col-md-4">
+			<label for="fromperiod">From</label>
+			<input type="text" data-date-format="dd-mm-yyyy" id="tanggalAwal" class="form-control" name="from">
+			<label for="toperiod">to</label>
+			<input type="text" data-date-format="dd-mm-yyyy" id="tanggalAkhir" class="form-control" name="to">
 		</div>
-		<div class="col-md-2">
-			<input type="date" class="form-control" id="tanggalAkhir" placeholder="yyyy-MM-dd"/>
-		</div>
+		</form>
 		<div class="col-md-2">
 			<select id="status" class="form-control">
 				<option value="">Status</option>
 				<option value="Approved">Approved</option>
 				<option value="Rejected">Rejected</option>
-				<option value="Process">Process</option>
+				<option value="Processed">Process</option>
 			</select>
 		</div>
 		<div class="col-md-2">
@@ -66,6 +68,25 @@ $(function(){
 	loadData();
 });
 
+$(function() {
+	$("#tanggalAwal").datepicker({
+		defaultDate : "+1w",
+		changeMonth : true,
+		numberOfMonths : 1,
+		onClose : function(selectedDate) {
+			$("#tanggalAwal").datepicker("option", "minDate", selectedDate);
+		}
+	});
+	$("#tanggalAkhir").datepicker({
+		defaultDate : "+1w",
+		changeMonth : true,
+		numberOfMonths : 1,
+		onClose : function(selectedDate) {
+			$("#tanggalAkhir").datepicker("option", "maxDate", selectedDate);
+		}
+	});
+});
+
 $('#btn-cek').click(function(){
 	var tgl1 = $("#tanggalAwal").val();
 	var tgl2 = $("#tanggalAkhir").val();
@@ -93,7 +114,7 @@ $('#btn-cek').click(function(){
 				$("#list-po").empty();
 				$.each(result, function(index, item){
 					var dataRows ='<tr>'+
-						'<td>'+ item.modifiedOn +'</td>'+
+						'<td>'+ item.createdOn +'</td>'+
 						'<td>'+ item.supplier.name+'</td>'+
 						'<td>'+ item.poNo+'</td>'+
 						'<td>'+ item.grandTotal+'</td>'+
@@ -125,7 +146,7 @@ function loadData(){
 			// looping data dengan jQuery
 			$.each(result, function(index, item){
 				var dataRow ='<tr>'+
-					'<td>'+ item.modifiedOn +'</td>'+
+					'<td>'+ item.createdOn +'</td>'+
 					'<td>'+ item.supplier.name+'</td>'+
 					'<td>'+ item.poNo+'</td>'+
 					'<td>'+ item.grandTotal+'</td>'+
