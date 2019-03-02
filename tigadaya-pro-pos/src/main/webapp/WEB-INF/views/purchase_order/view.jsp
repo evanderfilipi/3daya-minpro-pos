@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <form id="form-view" class="form-horizontal">
 	
 	<div class="col-md-12" >
@@ -80,13 +81,15 @@
 						<th width="25%">Unit Cost</th>
 						<th>Sub Total</th>
 					</tr>
+					<c:forEach var="data" items="${pod}">
 					<tr>
-						<td><input type="text" class="form-control" name="name" placeholder="Baju - Merah" id="name" /></td>
-						<td><input type="text" class="form-control" name="name" placeholder="3" id="name" readOnly /></td>
-						<td><input type="text" class="form-control" name="name" placeholder="10" id="name" readOnly /></td>
-						<td><input type="text" class="form-control" name="name" placeholder="Rp. 50.000" id="name" /></td>
-						<td><input type="text" class="form-control" name="name" placeholder="Rp. 500.000" id="name" readOnly /></td>
+							<td><input type="text" class="form-control" name="item-variant" placeholder="-" value="${data.variant.itemMod.name} - ${data.variant.name}" id="name" /></td>
+							<td><input type="text" class="form-control" name="stock" placeholder="-" readOnly value="${data.inventory.beginning}" /></td>
+							<td><input type="text" class="form-control" name="qty" placeholder="-" readOnly value="${data.requestQty}" /></td>
+							<td><input type="text" class="form-control" name="unit-cost" placeholder="Rp." value="${data.unitCost}" /></td>
+							<td><input type="text" class="form-control" name="sub-total" id="sub-total" placeholder="Rp." readOnly value="${data.subTotal}"/></td>
 					</tr>
+					</c:forEach>
 				</table>
 			</div>
 		</div>
@@ -98,7 +101,7 @@
 				<table>
 					<tr>
 						<th width="84%">TOTAL</th>
-						<th>Rp. 500.000</th>
+						<th><input type="text" class="form-control" id="total" placeholder="Rp." readOnly /></th>
 					</tr>
 				</table>	
 			</div>
@@ -131,3 +134,30 @@
 <div class="modal-footer">
 	<button type="button" class="btn btn-primary" onClick="updateStatus($('#form-update')); insertPoHis($('#form-insert'))">Done</button>
 </div>
+
+<script>
+$(document).ready(function(){
+	var row = 0,
+    col = 0,
+    ncol = 0;
+  	var sum;
+
+  // sum by col
+  	for (col = 1; col < ncol + 1; col++) {
+	    console.log("column: " + col);
+	    sum = 0;
+	    $("#sub-total").each(function(rowindex) {
+	      
+	        newval = $('#modal-data').find("#sub-total").val();
+	        console.log(newval);
+	        if (isNaN(newval)) {
+	          $('#sub-total').val(sum);
+	        } else {
+	          sum += parseInt(newval);
+	          $('#sub-total').val(sum)
+	        }
+	      
+	    });
+  	}
+});
+</script>

@@ -74,6 +74,19 @@ public class PurchaseOrderModel {
 	@JsonIgnore
 	@OneToMany(mappedBy="pOrder")
 	private List<PoHistoryModel> listPoHistory;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="poMod")
+	private List<PoDetailModel> listPoDetail;
+	
+
+	public List<PoDetailModel> getListPoDetail() {
+		return listPoDetail;
+	}
+
+	public void setListPoDetail(List<PoDetailModel> listPoDetail) {
+		this.listPoDetail = listPoDetail;
+	}
 
 	public List<PoHistoryModel> getListPoHistory() {
 		return listPoHistory;

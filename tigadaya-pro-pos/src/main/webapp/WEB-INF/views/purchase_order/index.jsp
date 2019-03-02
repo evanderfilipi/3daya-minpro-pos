@@ -166,7 +166,7 @@ $('#list-po').on('click','.btn-edit', function(){
 $('#list-po').on('click','.btn-view', function(){
 	var poId = $(this).val();
 	$.ajax({
-		url:'${contextName}/po/view/',
+		url:'${contextName}/po/view?id='+poId,
 		type:'get',
 		dataType:'html',
 		success : function(result){
@@ -198,6 +198,7 @@ function loadPo(po_id){
 			loadSupplier(supId);
 			loadOutlet(outId, pn, stat);
 			loadPoHistory(po_id);
+			
 			$('#modal-data').find('#notes-sup').val(dataPo.notes);
 			
 			// transfer value ke form input PO
@@ -224,6 +225,14 @@ function loadPo(po_id){
 					+ d.getFullYear() + " " + d.getHours()
 					+ ":" + d.getMinutes() + ":"
 					+ d.getSeconds());
+			
+			/*var total = parseInt($('#total').val());
+			var subTotal = parseInt($('#sub-total').val());
+			// 2. total lama ditambah subtotal
+			total = total+subTotal;
+			// 3. kirim nilai total yang terakhir ke id totalAmount
+			$('#total').val(total);*/
+			
 		}
 	
 	});
@@ -341,6 +350,7 @@ function updateStatus($poForm){
 		$("#modal-evander").modal('hide');
 	}
 }
+
 
 // function untuk merubah input-text status secara berkala ketika combobox status di modal-form berubah
 function transValue(getStatus){

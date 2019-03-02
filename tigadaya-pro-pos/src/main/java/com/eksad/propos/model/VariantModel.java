@@ -1,18 +1,25 @@
 package com.eksad.propos.model;
 
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -41,21 +48,44 @@ public class VariantModel {
 	@Column(name="price")
 	private Integer price;
 	
-	@Column(name="crated_by")
+	@Column(name="created_by")
 	private Integer createdBy;
 	
 	@Column(name="created_on")
-	private Date createdOn;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
+	private Timestamp createdOn;
 	
 	@Column(name="modified_by")
 	private Integer modifiedBy;
 	
 	@Column(name="modified_on")
-	private Date modifiedOn;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
+	private Timestamp modifiedOn;
 	
 	@Column(name="active")
 	private Boolean active;
 	
+	@JsonIgnore
+	@OneToMany(mappedBy="variant")
+	private List<PoDetailModel> listPoDetail;
+	
+	@ManyToOne
+	@JoinColumn(name="item_id", updatable=false, insertable=false)
+	private ItemModel itemMod;
+	
+	
+	public ItemModel getItemMod() {
+		return itemMod;
+	}
+	public void setItemMod(ItemModel itemMod) {
+		this.itemMod = itemMod;
+	}
+	public List<PoDetailModel> getListPoDetail() {
+		return listPoDetail;
+	}
+	public void setListPoDetail(List<PoDetailModel> listPoDetail) {
+		this.listPoDetail = listPoDetail;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -95,16 +125,8 @@ public class VariantModel {
 	public Date getCreatedOn() {
 		return createdOn;
 	}
-	public void setCreatedOn(String createdOn) {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date co = null;
-		try {
-			co= format.parse(createdOn);
-		} catch (Exception e) {
-			this.createdOn= null;
-			
-		}
-		this.createdOn = co;
+	public void setCreatedOn(Timestamp createdOn) {
+		this.createdOn = createdOn;
 	}
 	public Integer getModifiedBy() {
 		return modifiedBy;
@@ -115,15 +137,8 @@ public class VariantModel {
 	public Date getModifiedOn() {
 		return modifiedOn;
 	}
-	public void setModifiedOn(String modifiedOn) {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-DD");
-		Date mo = null;
-		try {
-			mo = format.parse(modifiedOn);
-		} catch (Exception e) {
-			this.modifiedOn=null;
-		}
-		this.modifiedOn = mo;
+	public void setModifiedOn(Timestamp modifiedOn) {
+		this.modifiedOn = modifiedOn;
 	}
 	public Boolean getActive() {
 		return active;

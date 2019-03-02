@@ -2,14 +2,18 @@ package com.eksad.propos.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "pos_mst_item")
@@ -43,6 +47,19 @@ public class ItemModel {
 	
 	@Column(name= "active")
 	private Boolean active;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="itemMod")
+	private List<VariantModel> listVariant;
+	
+
+	public List<VariantModel> getListVariant() {
+		return listVariant;
+	}
+
+	public void setListVariant(List<VariantModel> listVariant) {
+		this.listVariant = listVariant;
+	}
 
 	public Integer getId() {
 		return id;
