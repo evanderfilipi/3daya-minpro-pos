@@ -110,12 +110,14 @@
 		<tbody id="list-staff">
 		<c:forEach var="data" items="${dataList}">
 				<tr>
+					<td>${data.firstName }</td>
+					<td>${data.email }</td>
+					<td>${data.haveAccount }</td>
 					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td>${data.user.role.name }</td>
+					<td>${data.role.name }</td>
 					<td>
+						<button type="button" class="btn btn-edit btn-warning btn-sm">Edit</button>
+						<button class="btn btn-delete btn-danger btn-sm">Hapus</button>
 					</td>
 				</tr>
 			</c:forEach>
@@ -143,7 +145,7 @@
 
 	$(function() {
 		// memanggil method loadData;
-	loadData();
+	//  loadData();
 		loadRole();
 	});
 	
@@ -168,7 +170,7 @@
 		});
 	});
 	
-
+/*
 	function loadData() {
 		$.ajax({
 			// url ke api/category/
@@ -203,7 +205,7 @@
 				console.log(result);
 					}
 				});
-	}
+	}*/
 	
 	// method untuk add data
 	function addData($form) {
@@ -225,7 +227,7 @@
 				loadRole();
 				loadData();
 				roleS(form);
-				alert('Saved');
+			//	alert('Saved');
 			}
 		});
 		console.log(dataForm);
@@ -419,7 +421,7 @@ $('#list-staff').on('click','.btn-edit',
 	function assignOutlet($form) {
 		var dataProduct = $form.serializeJSON();
 		var data = '<tr>'
-				+ '<td><input type="hidden" name="eo[][outletId]" value="'+ dataProduct.outletId +'" class="form-control"/></td>'
+				+ '<td><input type="hidden" name="outlet[][outletId]" value="'+ dataProduct.outletId +'" class="form-control"/></td>'
 				
 				+ '</tr>';
 

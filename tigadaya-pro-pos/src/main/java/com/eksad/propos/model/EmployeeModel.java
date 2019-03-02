@@ -3,11 +3,16 @@ package com.eksad.propos.model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
@@ -16,6 +21,7 @@ import javax.persistence.TemporalType;
 import com.eksad.propos.model.EmployeeModel;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -62,8 +68,27 @@ private Date modifiedOn;
 @Column(name="active")
 private Boolean active;
 
+@ManyToOne(cascade = CascadeType.ALL)
+@JoinTable(name = "pos_mst_user", 
+  joinColumns = { @JoinColumn(name = "employee_id", referencedColumnName = "id", nullable=false, updatable=false, insertable=false) },
+  inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })
+private RoleModel role;
+
+/*@JsonIgnore
+@OneToOne
+@JoinColumn(name="id", nullable=false, updatable=false, insertable=false)
+private UserModel user;*/
+
 public Integer getId() {
 	return id;
+}
+
+public RoleModel getRole() {
+	return role;
+}
+
+public void setRole(RoleModel role) {
+	this.role = role;
 }
 
 public void setId(Integer id) {

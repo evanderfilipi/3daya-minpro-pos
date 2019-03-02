@@ -73,7 +73,7 @@
 		
 		<div class="form-group">
 			<div class="col-md-12">
-				<table>
+				<table id="item-table" class="table table-bordered">
 					<tr>
 						<th width="25%">Item</th>
 						<th width="15%">In Stock</th>
@@ -83,29 +83,23 @@
 					</tr>
 					<c:forEach var="data" items="${pod}">
 					<tr>
-							<td><input type="text" class="form-control" name="item-variant" placeholder="-" value="${data.variant.itemMod.name} - ${data.variant.name}" id="name" /></td>
-							<td><input type="text" class="form-control" name="stock" placeholder="-" readOnly value="${data.inventory.beginning}" /></td>
-							<td><input type="text" class="form-control" name="qty" placeholder="-" readOnly value="${data.requestQty}" /></td>
-							<td><input type="text" class="form-control" name="unit-cost" placeholder="Rp." value="${data.unitCost}" /></td>
-							<td><input type="text" class="form-control" name="sub-total" id="sub-total" placeholder="Rp." readOnly value="${data.subTotal}"/></td>
+							<td>${data.variant.itemMod.name} - ${data.variant.name}</td>
+							<td>${data.inventory.beginning}</td>
+							<td>${data.requestQty}</td>
+							<td>${data.unitCost}</td>
+							<td class="sub-total">${data.subTotal}</td>
 					</tr>
 					</c:forEach>
 				</table>
 			</div>
 		</div>
 		
-		<br />
-		
-		<div class="form-group">
-			<div class="col-md-12">
-				<table>
-					<tr>
-						<th width="84%">TOTAL</th>
-						<th><input type="text" class="form-control" id="total" placeholder="Rp." readOnly /></th>
-					</tr>
-				</table>	
-			</div>
+		<div class="form-inline">
+			<label>TOTAL</label>
+			<label id="total" class="pull-right"></label>
 		</div>
+		<hr/>
+		
 </div>
 </form>
 
@@ -132,32 +126,19 @@
 </form>
 
 <div class="modal-footer">
-	<button type="button" class="btn btn-primary" onClick="updateStatus($('#form-update')); insertPoHis($('#form-insert'))">Done</button>
+	<button type="button" class="btn btn-primary" onClick="updateStatus($('#form-update')); insertPoHis($('#form-insert'))"><i class="fa fa-check-square"></i> Done</button>
 </div>
 
 <script>
-$(document).ready(function(){
-	var row = 0,
-    col = 0,
-    ncol = 0;
-  	var sum;
-
-  // sum by col
-  	for (col = 1; col < ncol + 1; col++) {
-	    console.log("column: " + col);
-	    sum = 0;
-	    $("#sub-total").each(function(rowindex) {
-	      
-	        newval = $('#modal-data').find("#sub-total").val();
-	        console.log(newval);
-	        if (isNaN(newval)) {
-	          $('#sub-total').val(sum);
-	        } else {
-	          sum += parseInt(newval);
-	          $('#sub-total').val(sum)
-	        }
-	      
-	    });
-  	}
+$(function(){
+	var cls = document.getElementById("item-table").getElementsByTagName("td");
+	var sum = 0;
+	for (var i = 0; i < cls.length; i++){
+		if(cls[i].className == "sub-total"){
+	        sum += parseInt(cls[i].innerHTML);
+	    }
+	}
+	document.getElementById('total').innerHTML = 'Rp. '+sum;
+	console.log(sum);
 });
 </script>

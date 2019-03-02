@@ -39,6 +39,7 @@
 					<th>PO No.</th>
 					<th>Total</th>
 					<th>Status</th>
+					<th>#</th>
 				</tr>
 			</thead>
 			<tbody id="list-po">

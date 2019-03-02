@@ -1,4 +1,5 @@
 package com.eksad.propos.controller;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,11 +23,13 @@ import com.eksad.propos.service.EmployeeService;
 
 @Controller
 public class EmployeeController {
+	@Autowired
 	private EmployeeService service;
 	
 	@RequestMapping(value = "/employee",method=RequestMethod.GET)
 	public String index(Model model) {
-		List<EmployeeModel>items = this.service.getList();
+		List<EmployeeModel> items= new ArrayList<EmployeeModel>();
+		items = this.service.getList();
 		model.addAttribute("dataList", items);
 		return "employee/index";
 	}
