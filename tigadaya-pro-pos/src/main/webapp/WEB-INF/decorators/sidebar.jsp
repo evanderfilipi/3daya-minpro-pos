@@ -47,7 +47,7 @@
 							Item</a></li>
 					<li><a href="${contextName}/adjustment"><i class="fa fa-briefcase "></i>
 							Adjusment</a></li>
-					<li><a href="${contextName}/purchaseRequest"><i class="fa fa-retweet "></i>
+					<li><a href="${contextName}/pr"><i class="fa fa-retweet "></i>
 							Purchase Request</a></li>
 					<li><a href="${contextName}/po"><i class="fa fa-tasks "></i>
 							Purchase Order</a></li>

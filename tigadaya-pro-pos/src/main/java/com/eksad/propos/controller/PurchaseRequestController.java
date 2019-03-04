@@ -31,7 +31,7 @@ public class PurchaseRequestController extends BaseController {
 	public String index(Model model) {
 		model.addAttribute("username", this.getUserName());
 
-		return "purchaserequest/index";
+		return "purchase_request/index";
 	}
 	
 	@RequestMapping(value = "/pr/create")

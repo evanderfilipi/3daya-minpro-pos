@@ -155,7 +155,7 @@ function loadData(){
 						'<td>'+ item.grandTotal+'</td>'+
 						'<td>'+ item.status+'</td>'+
 						'<td class="col-md-1">'+
-							'<button type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i> Edit</button> '+
+							'<button type="button" class="btn btn-non-edit btn-warning btn-xs"><i class="fa fa-edit"></i> Edit</button> '+
 							'<button type="button" class="btn btn-view btn-info btn-xs" value="'+ item.id +'"><i class="fa fa-eye"></i> View</button> '+
 						'</td>'+
 						'</tr>';
@@ -199,6 +199,10 @@ $('#list-po').on('click','.btn-edit', function(){
 			// getData(sid);
 		}
 	});
+});
+
+$('#list-po').on('click','.btn-non-edit', function(){
+	alert("Purchase Order yang sudah di-reject tidak dapat di edit!")
 });
 
 $('#list-po').on('click','.btn-view', function(){
