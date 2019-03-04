@@ -135,6 +135,7 @@ $('#btn-cek').click(function(){
 
 //method loadData
 function loadData(){
+	var reject = "Rejected";
 	$.ajax({
 		// url ke api/po/
 		url:'${contextName}/api/po/',
@@ -146,18 +147,33 @@ function loadData(){
 			$("#list-po").empty();
 			// looping data dengan jQuery
 			$.each(result, function(index, item){
-				var dataRow ='<tr>'+
-					'<td>'+ item.createdOn +'</td>'+
-					'<td>'+ item.supplier.name+'</td>'+
-					'<td>'+ item.poNo+'</td>'+
-					'<td>'+ item.grandTotal+'</td>'+
-					'<td>'+ item.status+'</td>'+
-					'<td class="col-md-1">'+
-						'<button type="button" class="btn btn-edit btn-warning btn-xs" value="'+ item.id +'"><i class="fa fa-edit"></i> Edit</button> '+
-						'<button type="button" class="btn btn-view btn-info btn-xs" value="'+ item.id +'"><i class="fa fa-eye"></i> View</button> '+
-					'</td>'+
-					'</tr>';
-				$("#list-po").append(dataRow);
+				if (item.status == reject){
+					var dataRow ='<tr>'+
+						'<td>'+ item.createdOn +'</td>'+
+						'<td>'+ item.supplier.name+'</td>'+
+						'<td>'+ item.poNo+'</td>'+
+						'<td>'+ item.grandTotal+'</td>'+
+						'<td>'+ item.status+'</td>'+
+						'<td class="col-md-1">'+
+							'<button type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i> Edit</button> '+
+							'<button type="button" class="btn btn-view btn-info btn-xs" value="'+ item.id +'"><i class="fa fa-eye"></i> View</button> '+
+						'</td>'+
+						'</tr>';
+					$("#list-po").append(dataRow);
+				} else {
+					var dataRow ='<tr>'+
+						'<td>'+ item.createdOn +'</td>'+
+						'<td>'+ item.supplier.name+'</td>'+
+						'<td>'+ item.poNo+'</td>'+
+						'<td>'+ item.grandTotal+'</td>'+
+						'<td>'+ item.status+'</td>'+
+						'<td class="col-md-1">'+
+							'<button type="button" class="btn btn-edit btn-warning btn-xs" value="'+ item.id +'"><i class="fa fa-edit"></i> Edit</button> '+
+							'<button type="button" class="btn btn-view btn-info btn-xs" value="'+ item.id +'"><i class="fa fa-eye"></i> View</button> '+
+						'</td>'+
+						'</tr>';
+					$("#list-po").append(dataRow);
+				}
 			});
 			// menampilkan data ke console => F12
 			console.log(result);
@@ -166,9 +182,9 @@ function loadData(){
 }
 
 $('#list-po').on('click','.btn-edit', function(){
-	var sid = $(this).val();
+	var poId = $(this).val();
 	$.ajax({
-		url:'${contextName}/po/edit/',
+		url:'${contextName}/po/edit?id='+poId,
 		type:'get',
 		dataType:'html',
 		success : function(result){
@@ -220,8 +236,7 @@ function loadPo(po_id){
 			loadSupplier(supId);
 			loadOutlet(outId, pn, stat);
 			loadPoHistory(po_id);
-			
-			$('#modal-data').find('#notes-sup').val(dataPo.notes);
+			comboBox(stat);
 			
 			// transfer value ke form input PO
 			$('#modal-data').find('#notes-sup').val(dataPo.notes);
@@ -247,14 +262,6 @@ function loadPo(po_id){
 					+ d.getFullYear() + " " + d.getHours()
 					+ ":" + d.getMinutes() + ":"
 					+ d.getSeconds());
-			
-			/*var total = parseInt($('#total').val());
-			var subTotal = parseInt($('#sub-total').val());
-			// 2. total lama ditambah subtotal
-			total = total+subTotal;
-			// 3. kirim nilai total yang terakhir ke id totalAmount
-			$('#total').val(total);*/
-			
 		}
 	
 	});

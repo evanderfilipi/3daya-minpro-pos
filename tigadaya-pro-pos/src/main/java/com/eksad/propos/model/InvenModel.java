@@ -9,7 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -74,7 +77,17 @@ private Date modifiedOn;
 @OneToMany(mappedBy="inventory")
 private List<PoDetailModel> listPoDetail;
 
+@OneToOne
+@JoinColumn(name="variant_id", updatable=false, insertable=false)
+private VariantModel variant_invent;
 
+
+public VariantModel getVariant_invent() {
+	return variant_invent;
+}
+public void setVariant_invent(VariantModel variant_invent) {
+	this.variant_invent = variant_invent;
+}
 public Integer getBeginning() {
 	return beginning;
 }

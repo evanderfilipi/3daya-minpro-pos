@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <form id="form-edit" class="form-horizontal">
 	<!-- id -->
 	<input type="hidden" name="id" id="id" />
@@ -14,7 +15,10 @@
 			<div class="col-md-12">
 				<label>Choose Supplier</label>
 				<select name="regionId" id="regionId" class="form-control" onChange="getDistrictById($(this).val());">
-						<option value="">Supplier</option>
+						<option value="">-Supplier-</option>
+						<c:forEach var="sup" items="${supl}">
+       						<option value="${sup.id}" ${pom.supplierId==sup.id ? "selected='selected'":""}>${sup.name}</option>
+       					</c:forEach>
 				</select>
 			</div>
 		</div>
@@ -22,7 +26,7 @@
 		<div class="form-group">
 			<div class="col-md-12">
 				<label>Notes</label>
-				<textarea rows="4" cols="63" name="address" placeholder="Notes" id="address" style="padding: 10px"></textarea>
+				<textarea rows="4" cols="63" name="notes" placeholder="Notes" id="notes" style="padding: 10px">${pom.notes}</textarea>
 			</div>
 		</div>
 		

@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.eksad.propos.model.PoDetailModel;
 import com.eksad.propos.model.PurchaseOrderModel;
+import com.eksad.propos.model.SupplierModel;
 import com.eksad.propos.service.InvenService;
 import com.eksad.propos.service.PoDetailService;
 import com.eksad.propos.service.PurchaseOrderService;
+import com.eksad.propos.service.SupplierService;
 
 @Controller
 public class PurchaseOrderController extends BaseController {
@@ -27,7 +29,7 @@ public class PurchaseOrderController extends BaseController {
 	private PoDetailService service2;
 	
 	@Autowired
-	private InvenService service3;
+	private SupplierService service3;
 
 	@RequestMapping(value = "/po")
 	public String index(Model model) {
@@ -35,8 +37,19 @@ public class PurchaseOrderController extends BaseController {
 		return "purchase_order/index";
 	}
 	
-	@RequestMapping(value = "/po/edit/")
-	public String edit() {
+	@RequestMapping(value = "/po/edit")
+	public String edit(Model model, HttpServletRequest request) {
+		int id = Integer.parseInt(request.getParameter("id"));
+		// load data => memanggil data, lewat method getById, param id
+		PurchaseOrderModel pom = this.service.getById(id);
+		
+		List<SupplierModel> items = new ArrayList<SupplierModel>();
+		items = this.service3.getList();
+		
+		// mengirim data dari controller ke view
+		model.addAttribute("pom", pom);
+		model.addAttribute("supl", items);
+		
 		return "purchase_order/edit";
 	}
 	
@@ -48,9 +61,6 @@ public class PurchaseOrderController extends BaseController {
 		// mengirim data dari controller ke view
 		model.addAttribute("pod", podm);
 		
-		List<PoDetailModel> podm2 = this.service2.getByVarId(id);
-		// mengirim data dari controller ke view
-		model.addAttribute("pod2", podm2);
 		return "purchase_order/view";
 	}
 }

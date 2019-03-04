@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -73,7 +74,17 @@ public class VariantModel {
 	@JoinColumn(name="item_id", updatable=false, insertable=false)
 	private ItemModel itemMod;
 	
+	@JsonIgnore
+	@OneToOne(mappedBy="variant_invent")
+	private InvenModel varInventory;
 	
+	
+	public InvenModel getVarInventory() {
+		return varInventory;
+	}
+	public void setVarInventory(InvenModel varInventory) {
+		this.varInventory = varInventory;
+	}
 	public ItemModel getItemMod() {
 		return itemMod;
 	}

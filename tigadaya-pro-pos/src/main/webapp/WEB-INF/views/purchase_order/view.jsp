@@ -1,19 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <form id="form-view" class="form-horizontal">
-	
+
 	<div class="col-md-12" >
 	
 		<div class="form-group">
-			<div class="col-md-12">
-				<label>Purchase Order Detail</label>
-				<select name="status" id="status" class="btn btn-primary pull-right" onChange="transValue($(this).val());">
-					<option value="">More</option>
-					<option value="Approved">Approv</option>
-					<option value="Rejected">Reject</option>
-					<option value="Processed">Process</option>
-					<option value="Print">Print</option>
-				</select>
-				<hr style="margin-top: 5px">	
+			<div class="col-md-12" id="opsi">
+					
 			</div>
 		</div>
 		
@@ -75,7 +67,7 @@
 			<div class="col-md-12">
 				<table id="item-table" class="table table-bordered">
 					<tr>
-						<th width="25%">Item</th>
+						<th width="30%">Item</th>
 						<th width="15%">In Stock</th>
 						<th width="10%">Qty</th>
 						<th width="25%">Unit Cost</th>
@@ -84,10 +76,10 @@
 					<c:forEach var="data" items="${pod}">
 					<tr>
 							<td>${data.variant.itemMod.name} - ${data.variant.name}</td>
-							<td>${data.inventory.beginning}</td>
+							<td>${data.variant.varInventory.beginning}</td>
 							<td>${data.requestQty}</td>
-							<td>${data.unitCost}</td>
-							<td class="sub-total">${data.subTotal}</td>
+							<td>Rp. <label>${data.unitCost}</label></td>
+							<td>Rp. <label class="sub-total">${data.subTotal}</label></td>
 					</tr>
 					</c:forEach>
 				</table>
@@ -131,7 +123,8 @@
 
 <script>
 $(function(){
-	var cls = document.getElementById("item-table").getElementsByTagName("td");
+	
+	var cls = document.getElementById("item-table").getElementsByTagName("label");
 	var sum = 0;
 	for (var i = 0; i < cls.length; i++){
 		if(cls[i].className == "sub-total"){
@@ -141,4 +134,30 @@ $(function(){
 	document.getElementById('total').innerHTML = 'Rp. '+sum;
 	console.log(sum);
 });
+
+function comboBox(stats){
+	var rej = "Rejected";
+	if(stats == rej){
+		var comboBox1 = '<br/>'+
+		'<label>Purchase Order Detail</label>'+
+		'<select name="status" id="status" class="btn btn-primary pull-right">'+
+		'<option value="">More</option>'+
+		'<option value="">Print</option>'+
+		'</select>'+
+		'<hr align="left" style="margin-top:0; width:75%"/>';
+		$('#opsi').append(comboBox1);
+	} else {
+		var comboBox2 = '<br/>'+
+		'<label>Purchase Order Detail</label>'+
+		'<select name="status" id="status" class="btn btn-primary pull-right" onChange="transValue($(this).val());">'+
+		'<option value="">More</option>'+
+		'<option value="Approved">Approv</option>'+
+		'<option value="Rejected">Reject</option>'+
+		'<option value="Processed">Process</option>'+
+		'<option value="">Print</option>'+
+		'</select>'+
+		'<hr align="left" style="margin-top:0; width:75%"/>';
+		$('#opsi').append(comboBox2);
+	}
+}
 </script>
