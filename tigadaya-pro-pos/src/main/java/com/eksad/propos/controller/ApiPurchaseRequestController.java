@@ -17,17 +17,13 @@ import com.eksad.propos.model.PurchaseRequestModel;
 import com.eksad.propos.model.PurchaseRequestModel;
 import com.eksad.propos.service.PurchaseRequestService;
 
-
-
-
 @Controller
 public class ApiPurchaseRequestController {
-
 	private Log log = LogFactory.getLog(getClass());
 	@Autowired
 	private PurchaseRequestService service;
 	
-	@RequestMapping(value="/api/purchaserequest/", method=RequestMethod.GET)
+	@RequestMapping(value="/api/pr/", method=RequestMethod.GET)
 	public ResponseEntity<List<PurchaseRequestModel>> list(){
 		ResponseEntity<List<PurchaseRequestModel>> result = null;
 		try {
@@ -41,7 +37,7 @@ public class ApiPurchaseRequestController {
 	} 
 	
 	
-	@RequestMapping(value="/api/purchaserequest/{catId}")
+	@RequestMapping(value="/api/pr/{catId}")
 	public ResponseEntity<PurchaseRequestModel> getById (@PathVariable("catId")int vId){
 		ResponseEntity<PurchaseRequestModel> result=null;
 		try {
@@ -56,7 +52,7 @@ public class ApiPurchaseRequestController {
 		return result;
 	}
 	
-	@RequestMapping (value="api/purchaserequest/", method=RequestMethod.POST)
+	@RequestMapping (value="api/pr/", method=RequestMethod.POST)
 	public ResponseEntity<PurchaseRequestModel> postInsert(@RequestBody PurchaseRequestModel item){
 		ResponseEntity<PurchaseRequestModel> result = null;
 		try {
