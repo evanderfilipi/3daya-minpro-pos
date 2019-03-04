@@ -1,9 +1,12 @@
 package com.eksad.propos.controller;
 
+<<<<<<< HEAD
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+=======
+>>>>>>> 04cd6569413b416b49741567327b74a3b1f8397d
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +19,12 @@ import com.eksad.propos.service.PrDetailService;
 import com.eksad.propos.service.PurchaseRequestService;
 
 @Controller
+<<<<<<< HEAD
 public class PurchaseRequestController extends BaseController {
+=======
+public class PurchaseRequestController extends BaseController{
+	
+>>>>>>> 04cd6569413b416b49741567327b74a3b1f8397d
 	@Autowired
 	private PurchaseRequestService kd;
 	
@@ -29,7 +37,11 @@ public class PurchaseRequestController extends BaseController {
 	@RequestMapping(value = "/pr")
 	public String index(Model model) {
 		model.addAttribute("username", this.getUserName());
+<<<<<<< HEAD
 		return "purchase_request/index";
+=======
+		return "purchaserequest/index";
+>>>>>>> 04cd6569413b416b49741567327b74a3b1f8397d
 	}
 	
 	@RequestMapping(value = "/pr/create")

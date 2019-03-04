@@ -8,4 +8,5 @@ public interface VariantService {
 	public List<VariantModel> getList();
 	public void insert(VariantModel model);
 	public VariantModel getById(Integer id);
+	public List<VariantModel> getByVarId(Integer id);
 }

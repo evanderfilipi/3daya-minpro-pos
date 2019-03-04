@@ -4,18 +4,20 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.eksad.propos.service.AdjustmentService;
 
 @Controller
-public class AdjustmentController {
+public class AdjustmentController extends BaseController{
 	private Log log = LogFactory.getLog(getClass());
 	@Autowired
 	private AdjustmentService service;
 	
 	@RequestMapping(value="/adjustment")
-	public String index() {
+	public String index(Model model) {
+		model.addAttribute("username", this.getUserName());
 		return "adjustment/index";
 	}
 	

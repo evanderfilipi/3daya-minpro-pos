@@ -32,6 +32,11 @@ public class VariantServiceImpl implements VariantService {
 		return this.dao.getById(id);
 	}
 
+	@Override
+	public List<VariantModel> getByVarId(Integer id) {
+		return this.dao.getByVarId(id);
+	}
+
 }
 
 	

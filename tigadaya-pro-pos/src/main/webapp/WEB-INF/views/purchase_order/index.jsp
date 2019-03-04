@@ -5,18 +5,20 @@
 		<h3 class="box-title">Purchase Order ${username}</h3>
 		<br/><br/>
 		<!-- <a href="packages/create" class="btn btn-success pull-right"><i class="fa fa-plus-square"></i> Add</a> -->
-		<div class="col-md-2">
-			<input type="date" class="form-control" id="tanggalAwal" placeholder="yyyy-MM-dd"/>
+		<form class="form-inline">
+		<div class="picker col-md-4">
+			<label for="fromperiod">From</label>
+			<input type="text" data-date-format="dd-mm-yyyy" id="tanggalAwal" class="form-control" name="from">
+			<label for="toperiod">to</label>
+			<input type="text" data-date-format="dd-mm-yyyy" id="tanggalAkhir" class="form-control" name="to">
 		</div>
-		<div class="col-md-2">
-			<input type="date" class="form-control" id="tanggalAkhir" placeholder="yyyy-MM-dd"/>
-		</div>
+		</form>
 		<div class="col-md-2">
 			<select id="status" class="form-control">
 				<option value="">Status</option>
 				<option value="Approved">Approved</option>
 				<option value="Rejected">Rejected</option>
-				<option value="Process">Process</option>
+				<option value="Processed">Process</option>
 			</select>
 		</div>
 		<div class="col-md-2">
@@ -37,6 +39,7 @@
 					<th>PO No.</th>
 					<th>Total</th>
 					<th>Status</th>
+					<th>#</th>
 				</tr>
 			</thead>
 			<tbody id="list-po">
@@ -66,6 +69,25 @@ $(function(){
 	loadData();
 });
 
+$(function() {
+	$("#tanggalAwal").datepicker({
+		defaultDate : "+1w",
+		changeMonth : true,
+		numberOfMonths : 1,
+		onClose : function(selectedDate) {
+			$("#tanggalAwal").datepicker("option", "minDate", selectedDate);
+		}
+	});
+	$("#tanggalAkhir").datepicker({
+		defaultDate : "+1w",
+		changeMonth : true,
+		numberOfMonths : 1,
+		onClose : function(selectedDate) {
+			$("#tanggalAkhir").datepicker("option", "maxDate", selectedDate);
+		}
+	});
+});
+
 $('#btn-cek').click(function(){
 	var tgl1 = $("#tanggalAwal").val();
 	var tgl2 = $("#tanggalAkhir").val();
@@ -93,7 +115,7 @@ $('#btn-cek').click(function(){
 				$("#list-po").empty();
 				$.each(result, function(index, item){
 					var dataRows ='<tr>'+
-						'<td>'+ item.modifiedOn +'</td>'+
+						'<td>'+ item.createdOn +'</td>'+
 						'<td>'+ item.supplier.name+'</td>'+
 						'<td>'+ item.poNo+'</td>'+
 						'<td>'+ item.grandTotal+'</td>'+
@@ -125,7 +147,7 @@ function loadData(){
 			// looping data dengan jQuery
 			$.each(result, function(index, item){
 				var dataRow ='<tr>'+
-					'<td>'+ item.modifiedOn +'</td>'+
+					'<td>'+ item.createdOn +'</td>'+
 					'<td>'+ item.supplier.name+'</td>'+
 					'<td>'+ item.poNo+'</td>'+
 					'<td>'+ item.grandTotal+'</td>'+
@@ -166,7 +188,7 @@ $('#list-po').on('click','.btn-edit', function(){
 $('#list-po').on('click','.btn-view', function(){
 	var poId = $(this).val();
 	$.ajax({
-		url:'${contextName}/po/view/',
+		url:'${contextName}/po/view?id='+poId,
 		type:'get',
 		dataType:'html',
 		success : function(result){
@@ -198,6 +220,7 @@ function loadPo(po_id){
 			loadSupplier(supId);
 			loadOutlet(outId, pn, stat);
 			loadPoHistory(po_id);
+			
 			$('#modal-data').find('#notes-sup').val(dataPo.notes);
 			
 			// transfer value ke form input PO
@@ -224,6 +247,14 @@ function loadPo(po_id){
 					+ d.getFullYear() + " " + d.getHours()
 					+ ":" + d.getMinutes() + ":"
 					+ d.getSeconds());
+			
+			/*var total = parseInt($('#total').val());
+			var subTotal = parseInt($('#sub-total').val());
+			// 2. total lama ditambah subtotal
+			total = total+subTotal;
+			// 3. kirim nilai total yang terakhir ke id totalAmount
+			$('#total').val(total);*/
+			
 		}
 	
 	});
@@ -341,6 +372,7 @@ function updateStatus($poForm){
 		$("#modal-evander").modal('hide');
 	}
 }
+
 
 // function untuk merubah input-text status secara berkala ketika combobox status di modal-form berubah
 function transValue(getStatus){

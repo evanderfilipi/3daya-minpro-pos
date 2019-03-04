@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import com.eksad.propos.model.VariantModel;
 import com.eksad.propos.service.VariantService;
 
@@ -61,6 +62,19 @@ public class ApiVariantController {
 		} catch (Exception e) {
 			log.debug(e.getMessage(), e);
 			result = new ResponseEntity<VariantModel>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return result;
+	}
+	
+	@RequestMapping(value = "/api/variant/id/{varId}", method = RequestMethod.GET)
+	public ResponseEntity<List<VariantModel>> getByVarId(@PathVariable("varId") int poId) {
+		ResponseEntity<List<VariantModel>> result = null;
+		try {
+			List<VariantModel> vi = this.service.getByVarId(poId);
+			result = new ResponseEntity<List<VariantModel>>(vi, HttpStatus.OK);
+		} catch (Exception e) {
+			log.debug(e.getMessage(),e);
+			result = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return result;
 	}

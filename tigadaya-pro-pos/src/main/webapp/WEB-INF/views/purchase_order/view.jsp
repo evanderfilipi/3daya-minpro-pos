@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <form id="form-view" class="form-horizontal">
 	
 	<div class="col-md-12" >
@@ -72,7 +73,7 @@
 		
 		<div class="form-group">
 			<div class="col-md-12">
-				<table>
+				<table id="item-table" class="table table-bordered">
 					<tr>
 						<th width="25%">Item</th>
 						<th width="15%">In Stock</th>
@@ -80,29 +81,25 @@
 						<th width="25%">Unit Cost</th>
 						<th>Sub Total</th>
 					</tr>
+					<c:forEach var="data" items="${pod}">
 					<tr>
-						<td><input type="text" class="form-control" name="name" placeholder="Baju - Merah" id="name" /></td>
-						<td><input type="text" class="form-control" name="name" placeholder="3" id="name" readOnly /></td>
-						<td><input type="text" class="form-control" name="name" placeholder="10" id="name" readOnly /></td>
-						<td><input type="text" class="form-control" name="name" placeholder="Rp. 50.000" id="name" /></td>
-						<td><input type="text" class="form-control" name="name" placeholder="Rp. 500.000" id="name" readOnly /></td>
+							<td>${data.variant.itemMod.name} - ${data.variant.name}</td>
+							<td>${data.inventory.beginning}</td>
+							<td>${data.requestQty}</td>
+							<td>${data.unitCost}</td>
+							<td class="sub-total">${data.subTotal}</td>
 					</tr>
+					</c:forEach>
 				</table>
 			</div>
 		</div>
 		
-		<br />
-		
-		<div class="form-group">
-			<div class="col-md-12">
-				<table>
-					<tr>
-						<th width="84%">TOTAL</th>
-						<th>Rp. 500.000</th>
-					</tr>
-				</table>	
-			</div>
+		<div class="form-inline">
+			<label>TOTAL</label>
+			<label id="total" class="pull-right"></label>
 		</div>
+		<hr/>
+		
 </div>
 </form>
 
@@ -129,5 +126,19 @@
 </form>
 
 <div class="modal-footer">
-	<button type="button" class="btn btn-primary" onClick="updateStatus($('#form-update')); insertPoHis($('#form-insert'))">Done</button>
+	<button type="button" class="btn btn-primary" onClick="updateStatus($('#form-update')); insertPoHis($('#form-insert'))"><i class="fa fa-check-square"></i> Done</button>
 </div>
+
+<script>
+$(function(){
+	var cls = document.getElementById("item-table").getElementsByTagName("td");
+	var sum = 0;
+	for (var i = 0; i < cls.length; i++){
+		if(cls[i].className == "sub-total"){
+	        sum += parseInt(cls[i].innerHTML);
+	    }
+	}
+	document.getElementById('total').innerHTML = 'Rp. '+sum;
+	console.log(sum);
+});
+</script>

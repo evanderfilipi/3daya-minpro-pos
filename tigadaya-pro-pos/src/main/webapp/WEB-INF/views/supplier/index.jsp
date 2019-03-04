@@ -136,8 +136,7 @@ $('#btn-add').click(function(){
 });
 
 function loadProvince($form, $selected){
-	$.ajax({
-		
+	$.ajax({	
 		url:'${contextName}/api/province/',
 		type:'get',
 		// data type berupa JSON
