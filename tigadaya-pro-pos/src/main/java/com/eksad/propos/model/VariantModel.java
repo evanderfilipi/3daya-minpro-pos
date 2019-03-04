@@ -22,10 +22,7 @@ import javax.persistence.TableGenerator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-=======
->>>>>>> 04cd6569413b416b49741567327b74a3b1f8397d
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -71,17 +68,15 @@ public class VariantModel {
 	@Column(name="active")
 	private Boolean active;
 	
-<<<<<<< HEAD
 	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name="item_id", referencedColumnName="id", updatable=false, insertable=false)
 	@JsonManagedReference
 	private ItemModel item; 
 	
-	@JsonIgnore
+	/*@JsonIgnore
 	@OneToMany(mappedBy="variantInven")
 	private List<InvenModel> listInven;
-	
-=======
+	*/
 	@JsonIgnore
 	@OneToMany(mappedBy="variant")
 	private List<PoDetailModel> listPoDetail;
@@ -103,7 +98,6 @@ public class VariantModel {
 	public void setListPoDetail(List<PoDetailModel> listPoDetail) {
 		this.listPoDetail = listPoDetail;
 	}
->>>>>>> 04cd6569413b416b49741567327b74a3b1f8397d
 	public Integer getId() {
 		return id;
 	}
