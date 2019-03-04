@@ -1,5 +1,6 @@
 package com.eksad.propos.model;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -49,14 +50,14 @@ public class PurchaseRequestModel {
 	
 	@Column(name="created_on")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
-	private Date createdOn;
+	private Timestamp createdOn;
 	
 	@Column(name="modified_by")
 	private Integer modifiedBy;
 	
 	@Column(name="modified_on")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
-	private Date modifiedOn;
+	private Timestamp modifiedOn;
 
 	public Integer getId() {
 		return id;
@@ -78,16 +79,10 @@ public class PurchaseRequestModel {
 		return readyTime;
 	}
 
-	public void setReadyTime(String readyTime) {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date rt = null;
-		try {
-			rt = format.parse(readyTime); 
-			} catch (Exception e) {
-				this.readyTime= null;
-			}
-		this.readyTime=rt;
+	public void setReadyTime(Date readyTime) {
+		this.readyTime = readyTime;
 	}
+
 	public String getPrNo() {
 		return prNo;
 	}
@@ -120,19 +115,12 @@ public class PurchaseRequestModel {
 		this.createdBy = createdBy;
 	}
 
-	public Date getCreatedOn() {
+	public Timestamp getCreatedOn() {
 		return createdOn;
 	}
 
-	public void setCreatedOn(String createdOn) {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date co = null;
-		try {
-			co = format.parse(createdOn); 
-			} catch (Exception e) {
-				this.createdOn= null;
-			}
-		this.createdOn=co;
+	public void setCreatedOn(Timestamp createdOn) {
+		this.createdOn = createdOn;
 	}
 
 	public Integer getModifiedBy() {
@@ -143,21 +131,12 @@ public class PurchaseRequestModel {
 		this.modifiedBy = modifiedBy;
 	}
 
-	public Date getModifiedOn() {
+	public Timestamp getModifiedOn() {
 		return modifiedOn;
 	}
 
-	public void setModifiedOn(String modifiedOn) {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date mo = null;
-		try {
-			mo = format.parse(modifiedOn); 
-			} catch (Exception e) {
-				this.modifiedOn= null;
-			}
-		this.modifiedOn=mo;
+	public void setModifiedOn(Timestamp modifiedOn) {
+		this.modifiedOn = modifiedOn;
 	}
-	
-	
 	
 }

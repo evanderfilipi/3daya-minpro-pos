@@ -3,16 +3,24 @@ package com.eksad.propos.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -55,6 +63,15 @@ public class VariantModel {
 	
 	@Column(name="active")
 	private Boolean active;
+	
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name="item_id", referencedColumnName="id", updatable=false, insertable=false)
+	@JsonManagedReference
+	private ItemModel item; 
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="variantInven")
+	private List<InvenModel> listInven;
 	
 	public Integer getId() {
 		return id;

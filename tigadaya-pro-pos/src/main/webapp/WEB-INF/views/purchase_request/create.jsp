@@ -1,4 +1,4 @@
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 	request.setAttribute("contextName", request.getServletContext().getContextPath());
 %>
@@ -42,21 +42,26 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<h3 class="box-title col-md-8">Staff List</h3>
+			<h3 class="box-title col-md-8">Purchase Request</h3>
 		</div>
-		<div class="box-body no-padding">
-			<table class="table table-stripped table-bordered">
-				<thead>
+		
+		<div class="form-group">
+			<div class="col-md-12">
+				<table>
 					<tr>
-						<th>Item</th>
-						<th>In Stock</th>
-						<th>Request Qty.</th>
-						<th>#</th>
+						<th width="25%">Item</th>
+						<th width="15%">In Stock</th>
+						<th width="10%">Request Qty</th>
 					</tr>
-				</thead>
-				<tbody id="list-staff">
-				</tbody>
-			</table>
+					<c:forEach var="data" items="${pod}">
+					<tr>
+							<td><input type="text" class="form-control" name="item-variant" placeholder="-" value="${data.variant.itemMod.name} - ${data.variant.name}" id="name" /></td>
+							<td><input type="text" class="form-control" name="stock" placeholder="-" readOnly value="${data.inventory.beginning}" /></td>
+							<td><input type="text" class="form-control" name="qty" placeholder="-" readOnly value="${data.requestQty}" /></td>
+					</tr>
+					</c:forEach>
+				</table>
+			</div>
 		</div>
 
 		<div class="form-group">

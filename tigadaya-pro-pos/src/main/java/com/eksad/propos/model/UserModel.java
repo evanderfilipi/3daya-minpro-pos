@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
@@ -16,6 +17,7 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -58,19 +60,16 @@ public class UserModel {
 	
 	@Column(name="active")
 	private Boolean active;
-	
+	/*
 	@ManyToOne
 	@JoinColumn(name="role_id", nullable=false, updatable=false, insertable=false)
 	private RoleModel role;
 	
-	
-	public RoleModel getRole() {
-		return role;
-	}
-
-	public void setRole(RoleModel role) {
-		this.role = role;
-	}
+	@JsonIgnore
+	@OneToOne
+	@JoinColumn(name="employee_id", nullable=false, updatable=false, insertable=false)
+	private EmployeeModel employee;
+	*/
 
 	public Integer getId() {
 		return id;

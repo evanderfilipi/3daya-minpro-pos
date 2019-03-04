@@ -17,6 +17,7 @@
 		<pattern>/outlet/*</pattern>
 		<pattern>/ts/*</pattern>
 		<pattern>/supplier/*</pattern>
+		<pattern>/pr/*</pattern>
 	</excludes>
 
 	<decorator name="main" page="main.jsp">

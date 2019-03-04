@@ -57,15 +57,15 @@ public class RoleModel {
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="role")	
-	private List<UserModel> listUser;
+	private List<EmployeeModel> listEmployee;
 	
-	
-	public List<UserModel> getListUser() {
-		return listUser;
+
+	public List<EmployeeModel> getListEmployee() {
+		return listEmployee;
 	}
 
-	public void setListUser(List<UserModel> listUser) {
-		this.listUser = listUser;
+	public void setListEmployee(List<EmployeeModel> listEmployee) {
+		this.listEmployee = listEmployee;
 	}
 
 	public Integer getId() {
