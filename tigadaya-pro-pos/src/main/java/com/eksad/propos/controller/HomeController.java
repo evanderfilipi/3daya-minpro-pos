@@ -36,4 +36,9 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping(value = "/choose-outlet", method = RequestMethod.GET)
+	public String loginForm() {
+		return "choose_outlet";
+	}
+	
 }

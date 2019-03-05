@@ -1,17 +1,20 @@
 package com.eksad.propos.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -44,6 +47,18 @@ public class ProvinceModel {
 	
 	@Column(name = "active")
 	private Boolean active;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="province")
+	private List<SupplierModel> listSup;
+
+	public List<SupplierModel> getListSup() {
+		return listSup;
+	}
+
+	public void setListSup(List<SupplierModel> listSup) {
+		this.listSup = listSup;
+	}
 
 	public Integer getId() {
 		return id;

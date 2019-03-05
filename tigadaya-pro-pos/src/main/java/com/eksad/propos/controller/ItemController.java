@@ -4,7 +4,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+<<<<<<< HEAD
 import com.eksad.propos.service.VariantService;
+=======
+@Controller
+public class ItemController extends BaseController{
+>>>>>>> 2a108cb5d90c2aee81e4c02f152012596f4efe85
 
 @Controller
 public class ItemController extends BaseController {

@@ -35,22 +35,31 @@
 				</span>
 			</a>
 				<ul class="treeview-menu">
-					<li><a href="#"><i
+					<li><a href="${contextName}/employee"><i
 							class="fa fa-users"></i> Employee</a></li>
-					<li><a href="#"><i class="fa fa-arrows-alt"></i>
+					<li><a href="${contextName}/category"><i class="fa fa-arrows-alt"></i>
 							Category</a></li>
 					<li><a href="${contextName}/supplier"><i class="fa fa-building"></i>
 							Supplier</a></li>
 					<li><a href="${contextName}/outlet"><i class="fa fa-paperclip "></i>
 							Outlet</a></li>
+<<<<<<< HEAD
 					<li><a href="${contextName}/item""><i class="fa fa-calendar "></i>
+=======
+					<li><a href="${contextName}/item"><i class="fa fa-calendar "></i>
+>>>>>>> 2a108cb5d90c2aee81e4c02f152012596f4efe85
 							Item</a></li>
-					<li><a href="${contextName}/ts"><i class="fa fa-paperclip "></i>
-							Transfer Stock</a></li>	
-											
+					<li><a href="${contextName}/adjustment"><i class="fa fa-briefcase "></i>
+							Adjustment</a></li>
+					<li><a href="${contextName}/pr"><i class="fa fa-retweet "></i>
+							Purchase Request</a></li>
+					<li><a href="${contextName}/po"><i class="fa fa-tasks "></i>
+							Purchase Order</a></li>
+					<li><a href="${contextName}/ts"><i class="fa fa-share-square-o "></i>
+							Transfer Stock</a></li>
+					<li><a href="${contextName}/logout"><i class="fa fa-power-off "></i> Logout</a></li>					
 				</ul>				
 			</li>
-			<li><a href="${contextName }/logout">Logout</a></li>
 			<!-- <li class="treeview"><a href="#"> <i class="fa fa-files-o"></i>
 					<span>Layout Options</span> <span class="pull-right-container">
 						<span class="label label-primary pull-right">4</span>

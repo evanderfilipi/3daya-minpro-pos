@@ -2,7 +2,7 @@
 <% request.setAttribute("contextName", request.getServletContext().getContextPath()); %>
 <div class="box box-info">
 	<div class="box-header">
-		<h3 class="box-title">Suppliers</h3>
+		<h3 class="box-title">Suppliers ${username}</h3>
 		<br/><br/>
 		<!-- <a href="packages/create" class="btn btn-success pull-right"><i class="fa fa-plus-square"></i> Add</a> -->
 		<div class="col-md-3">
@@ -34,7 +34,7 @@
 	<div class="modal-dialog">
 		<div class="box box-success">
 			<div class="box-header">
-				<h3 class="box-title">Modal Form</h3>
+				<h3 class="box-title" id="modal-title"></h3>
 			</div>
 			<div class="box-body" id="modal-data">
 				
@@ -69,7 +69,7 @@ function loadData(){
 					'<td>'+ item.phone+'</td>'+
 					'<td>'+ item.email+'</td>'+
 					'<td class="col-md-1">'+
-						'<button type="button" class="btn btn-edit btn-info btn-xs" value="'+ item.id +'"><i class="fa fa-eye"></i> Edit</button> '+
+						'<button type="button" class="btn btn-edit btn-warning btn-xs" value="'+ item.id +'"><i class="fa fa-edit"></i> Edit</button> '+
 					'</td>'+
 					'</tr>';
 				$("#list-supplier").append(dataRow);
@@ -81,6 +81,7 @@ function loadData(){
 }
 
 function cari(){
+	// pencarian berdasarkan nama supplier
 	var cari = $('#search').val();
 	$.ajax({
 		url:'${contextName}/api/supplier/search/'+cari,
@@ -96,7 +97,7 @@ function cari(){
 					'<td>'+ item.phone+'</td>'+
 					'<td>'+ item.email+'</td>'+
 					'<td class="col-md-1">'+
-						'<button type="button" class="btn btn-edit btn-info btn-xs" value="'+ item.id +'"><i class="fa fa-eye"></i> Edit</button> '+
+						'<button type="button" class="btn btn-edit btn-warning btn-xs" value="'+ item.id +'"><i class="fa fa-edit"></i> Edit</button> '+
 					'</td>'+
 					'</tr>';
 				$("#list-supplier").append(dataRows);
@@ -107,6 +108,7 @@ function cari(){
 }
 
 $('#btn-add').click(function(){
+	var d = new Date($.now());
 	$.ajax({
 		url :'${contextName}/supplier/create/',
 		tipe :'get',
@@ -121,13 +123,20 @@ $('#btn-add').click(function(){
 			$("#modal-evander").modal('show');
 			
 			loadProvince($("#modal-data"), 0);
+			$('#modal-data').find("#createdOn").val(d.getDate() + "-" + (d.getMonth()+1) + "-"
+					+ d.getFullYear() + " " + d.getHours()
+					+ ":" + d.getMinutes() + ":"
+					+ d.getSeconds());
+			$('#modal-data').find("#modifiedOn").val(d.getDate() + "-" + (d.getMonth()+1) + "-"
+					+ d.getFullYear() + " " + d.getHours()
+					+ ":" + d.getMinutes() + ":"
+					+ d.getSeconds());
 		}
 	});
 });
 
 function loadProvince($form, $selected){
-	$.ajax({
-		
+	$.ajax({	
 		url:'${contextName}/api/province/',
 		type:'get',
 		// data type berupa JSON
@@ -227,30 +236,58 @@ function getDistrictById(dId){
 }
 
 function addData($form){
-	// memangil method getFormData dari file
-	// resources/dist/js/map-form-objet.js
-	var dataForm = getFormData($form);
-	$.ajax({
-		// url ke api/packages/
-		url:'${contextName}/api/supplier/',
-		type:'post',
-		// data type berupa JSON
-		dataType:'json',
-		// mengirim parameter data
-		data:JSON.stringify(dataForm),
-		// mime type 
-		contentType: 'application/json',
-		success : function(result){
-			//menutup modal
-			$("#modal-evander").modal('hide');
-			// panggil method load data, untuk melihat data terbaru
-			loadData();
-		}
-	});
-	console.log(dataForm);
+	var name = $('#modal-data').find("#name").val();
+	var province = $('#modal-data').find("#provinceId").val();
+	var region = $('#modal-data').find("#regionId").val();
+	var district = $('#modal-data').find("#districtId").val();
+	var postalCode = $('#modal-data').find("#postalCode").val();
+	var email = $('#modal-data').find("#email").val();
+	var cekEmail = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+	var len1 = name.length;
+	var len2 = province.length;
+	var len3 = region.length;
+	var len4 = district.length;
+	var len5 = postalCode.length;
+	
+	if(len1 < 1) {
+		alert("Kolom Nama tidak boleh kosong!");
+	} else if (len2 < 1){
+		alert("Pilih Provinsi terlebih dahulu!");
+	} else if (len3 < 1){
+		alert("Pilih Region terlebih dahulu!");
+	} else if (len4 < 1){
+		alert("Pilih District terlebih dahulu!");
+	} else if (len5 < 1){
+		alert("Kolom Postal Code tidak boleh kosong!");
+	} else if (len5 < 5){
+		alert("Postal Code harus 5 digit/lebih!");
+	} else if (!cekEmail.test(email)){
+		alert("Format Email salah!");
+	} else {
+		var dataForm = getFormData($form);
+			$.ajax({
+				// url ke api/packages/
+				url:'${contextName}/api/supplier/',
+				type:'post',
+				// data type berupa JSON
+				dataType:'json',
+				// mengirim parameter data
+				data:JSON.stringify(dataForm),
+				// mime type 
+				contentType: 'application/json',
+				success : function(result){
+					//menutup modal
+					$("#modal-evander").modal('hide');
+					// panggil method load data, untuk melihat data terbaru
+					loadData();
+				}
+			});
+		console.log(dataForm);
+	}
 }
 
 function getData(dataId){
+	var d = new Date($.now());
 	// panggil API
 	$.ajax({
 		// url ke api/product/
@@ -265,11 +302,17 @@ function getData(dataId){
 			$('#modal-data').find('#postalCode').val(dataApi.postalCode);
 			$('#modal-data').find('#phone').val(dataApi.phone);
 			$('#modal-data').find('#email').val(dataApi.email);
+			$('#modal-data').find('#createdOn').val(dataApi.createdOn);
 			$('#modal-data').find('#active').val(dataApi.active);
 			
 			loadProvince($("#modal-data"), dataApi.provinceId);
 			loadRegion($("#modal-data"), dataApi.regionId, dataApi.provinceId);
 			loadDistrict($("#modal-data"), dataApi.districtId, dataApi.regionId);
+			
+			$('#modal-data').find("#modifiedOn").val(d.getDate() + "-" + (d.getMonth()+1) + "-"
+					+ d.getFullYear() + " " + d.getHours()
+					+ ":" + d.getMinutes() + ":"
+					+ d.getSeconds());
 			console.log(dataApi);
 		}
 	});
@@ -288,8 +331,8 @@ $('#list-supplier').on('click','.btn-edit', function(){
 			$("#modal-data").html(result);
 			//menampilkan modal pop up
 			$("#modal-evander").modal('show');
-			// panggil method getData				
-			
+			// panggil method getData
+
 			getData(sid);
 		}
 	});
@@ -297,26 +340,52 @@ $('#list-supplier').on('click','.btn-edit', function(){
 
 // method untuk delete data
 function editData($form){
-	// memangil method getFormData dari file
-	// resources/dist/js/map-form-objet.js
 	var dataForm = getFormData($form);
-	$.ajax({
-		// url ke api/packages/
-		url:'${contextName}/api/supplier/',
-		type:'put',
-		// data type berupa JSON
-		dataType:'json',
-		// mengirim parameter data
-		data:JSON.stringify(dataForm),
-		// mime type 
-		contentType: 'application/json',
-		success : function(result){
-			//menutup modal
-			$("#modal-evander").modal('hide');
-			// panggil method load data, untuk melihat data terbaru
-			loadData();
-		}
-	});
+	var name = $('#modal-data').find("#name").val();
+	var province = $('#modal-data').find("#provinceId").val();
+	var region = $('#modal-data').find("#regionId").val();
+	var district = $('#modal-data').find("#districtId").val();
+	var postalCode = $('#modal-data').find("#postalCode").val();
+	var email = $('#modal-data').find("#email").val();
+	var cekEmail = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+	var len1 = name.length;
+	var len2 = province.length;
+	var len3 = region.length;
+	var len4 = district.length;
+	var len5 = postalCode.length;
+	
+	if(len1 < 1) {
+		alert("Kolom Nama tidak boleh kosong!");
+	} else if (len2 < 1){
+		alert("Pilih Provinsi terlebih dahulu!");
+	} else if (len3 < 1){
+		alert("Pilih Region terlebih dahulu!");
+	} else if (len4 < 1){
+		alert("Pilih District terlebih dahulu!");
+	} else if (len5 < 1){
+		alert("Kolom Postal Code tidak boleh kosong!");
+	} else if (!cekEmail.test(email)){
+		alert("Format Email salah!");
+	} else {
+		var dataForm = getFormData($form);
+		$.ajax({
+			// url ke api/packages/
+			url:'${contextName}/api/supplier/',
+			type:'put',
+			// data type berupa JSON
+			dataType:'json',
+			// mengirim parameter data
+			data:JSON.stringify(dataForm),
+			// mime type 
+			contentType: 'application/json',
+			success : function(result){
+				//menutup modal
+				$("#modal-evander").modal('hide');
+				// panggil method load data, untuk melihat data terbaru
+				loadData();
+			}
+		});
+	}
 	console.log(dataForm);
 }
 	

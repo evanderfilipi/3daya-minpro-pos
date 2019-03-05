@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.eksad.propos.dao.VariantDao;
+import com.eksad.propos.model.PoDetailModel;
 import com.eksad.propos.model.VariantModel;
 
 @Repository
@@ -40,6 +41,7 @@ public class VariantDaoImpl implements VariantDao {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public String getNewSku() {
 		Session session = sessionFactory.getCurrentSession();
 		String hql="select cd from VariantModel cd where cd.sku=(select max(sku)from VariantModel)";
@@ -59,6 +61,16 @@ public class VariantDaoImpl implements VariantDao {
 		
 	}
 	}
+=======
+	public List<VariantModel> getByVarId(Integer id) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "select vm from VariantModel vm where vm.id=:id";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", id);
+		List<VariantModel> result = query.getResultList();
+		return result;
+	}}
+>>>>>>> 2a108cb5d90c2aee81e4c02f152012596f4efe85
 
 	
 	

@@ -9,15 +9,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+<<<<<<< HEAD
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+=======
+>>>>>>> 2a108cb5d90c2aee81e4c02f152012596f4efe85
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+=======
+import com.fasterxml.jackson.annotation.JsonIgnore;
+>>>>>>> 2a108cb5d90c2aee81e4c02f152012596f4efe85
 
 @Entity
 //berguna untuk menandai bahwa kelas tersebut adalah sebuah kelas entity/entitas
@@ -55,6 +62,7 @@ public class ItemModel {
 	@Column(name= "active")
 	private Boolean active;
 	
+<<<<<<< HEAD
 	
 	@ManyToOne
 	@JoinColumn(name="category_id", updatable= false, insertable=false)
@@ -64,16 +72,29 @@ public class ItemModel {
 	@OneToMany(mappedBy="item")
 	private List<VariantModel> listVariant;
 	
+=======
+	@JsonIgnore
+	@OneToMany(mappedBy="itemMod")
+	private List<VariantModel> listVariant;
+	
+
+>>>>>>> 2a108cb5d90c2aee81e4c02f152012596f4efe85
 	public List<VariantModel> getListVariant() {
 		return listVariant;
 	}
 
+<<<<<<< HEAD
 
 	public void setListVariant(List<VariantModel> listVariant) {
 		this.listVariant = listVariant;
 		//this untuk menggantikan current class
 	}
 
+=======
+	public void setListVariant(List<VariantModel> listVariant) {
+		this.listVariant = listVariant;
+	}
+>>>>>>> 2a108cb5d90c2aee81e4c02f152012596f4efe85
 
 	public Integer getId() {
 		return id;

@@ -1,18 +1,24 @@
 package com.eksad.propos.model;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -57,17 +63,45 @@ public class SupplierModel {
 	
 	@Column(name="created_on")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
-	private Date createdOn;
+	private Timestamp createdOn;
 	
 	@Column(name="modified_by")
 	private Integer modifiedBy;
 	
 	@Column(name="modified_on")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
-	private Date modifiedOn;
+	private Timestamp modifiedOn;
 	
 	@Column(name="active")
 	private Boolean active;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="supplier")
+	private List<PurchaseOrderModel> listPo;
+	
+	@ManyToOne
+	@JoinColumn(name="province_id", updatable=false, insertable=false)
+	private ProvinceModel province;
+	
+	@ManyToOne
+	@JoinColumn(name="region_id", updatable=false, insertable=false)
+	private RegionModel region;
+	
+	public ProvinceModel getProvince() {
+		return province;
+	}
+
+	public void setProvince(ProvinceModel province) {
+		this.province = province;
+	}
+
+	public RegionModel getRegion() {
+		return region;
+	}
+
+	public void setRegion(RegionModel region) {
+		this.region = region;
+	}
 
 	public Integer getId() {
 		return id;
@@ -153,15 +187,8 @@ public class SupplierModel {
 		return createdOn;
 	}
 
-	public void setCreatedOn(String createdOn) {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date creOn = null;
-		try {
-			creOn = format.parse(createdOn);
-		} catch (Exception e) {
-			creOn = null;
-		}
-		this.createdOn = creOn;
+	public void setCreatedOn(Timestamp createdOn) {
+		this.createdOn = createdOn;
 	}
 
 	public Integer getModifiedBy() {
@@ -176,15 +203,8 @@ public class SupplierModel {
 		return modifiedOn;
 	}
 
-	public void setModifiedOn(String modifiedOn) {
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date modOn = null;
-		try {
-			modOn = format.parse(modifiedOn);
-		} catch (Exception e) {
-			modOn = null;
-		}
-		this.modifiedOn = modOn;
+	public void setModifiedOn(Timestamp modifiedOn) {
+		this.modifiedOn = modifiedOn;
 	}
 
 	public Boolean getActive() {
@@ -194,5 +214,15 @@ public class SupplierModel {
 	public void setActive(Boolean active) {
 		this.active = active;
 	}
+
+	public List<PurchaseOrderModel> getListPo() {
+		return listPo;
+	}
+
+	public void setListPo(List<PurchaseOrderModel> listPo) {
+		this.listPo = listPo;
+	}
+	
+	
 
 }

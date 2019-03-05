@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Website Penjualan Evander</title>
+<title>Kelompok 1 - POS</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
@@ -94,9 +94,9 @@
 	<script src="${contextName}/resources/fastclick/lib/fastclick.js"></script>
 	<!-- AdminLTE App -->
 	<script src="${contextName}/resources/dist/js/adminlte.min.js"></script>
-	<!-- AdminLTE dashboard demo (This is only for demo purposes) ->
+	<!-- AdminLTE dashboard demo (This is only for demo purposes)  -->
 	<script src="${contextName}/resources/dist/js/pages/dashboard.js"></script>
-	<!-- AdminLTE for demo purposes
-	<script src="${contextName}/resources/dist/js/demo.js"></script-->
+	<!-- AdminLTE for demo purposes -->
+	<script src="${contextName}/resources/dist/js/demo.js"></script>
 </body>
 </html>
