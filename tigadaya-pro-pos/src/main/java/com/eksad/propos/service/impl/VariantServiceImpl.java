@@ -33,17 +33,19 @@ public class VariantServiceImpl implements VariantService {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public String getNewSku() {
 		return this.dao.getNewSku();
 	}
-	}
-=======
+	
 	public List<VariantModel> getByVarId(Integer id) {
 		return this.dao.getByVarId(id);
 	}
 
-}
->>>>>>> 2a108cb5d90c2aee81e4c02f152012596f4efe85
+	@Override
+	public VariantModel getById(Integer id) {
 
+	return this.dao.getById(id);
+	}
+
+}
 	

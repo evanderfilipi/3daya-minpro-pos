@@ -43,11 +43,7 @@
 							Supplier</a></li>
 					<li><a href="${contextName}/outlet"><i class="fa fa-paperclip "></i>
 							Outlet</a></li>
-<<<<<<< HEAD
-					<li><a href="${contextName}/item""><i class="fa fa-calendar "></i>
-=======
 					<li><a href="${contextName}/item"><i class="fa fa-calendar "></i>
->>>>>>> 2a108cb5d90c2aee81e4c02f152012596f4efe85
 							Item</a></li>
 					<li><a href="${contextName}/adjustment"><i class="fa fa-briefcase "></i>
 							Adjustment</a></li>

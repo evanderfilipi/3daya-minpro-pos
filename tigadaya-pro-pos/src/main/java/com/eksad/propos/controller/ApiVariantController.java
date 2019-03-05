@@ -53,18 +53,18 @@ public class ApiVariantController {
 		return result;
 	}	
 	
-	@RequestMapping(value="/api/variant/{catId}",method=RequestMethod.GET)
-	public ResponseEntity<VariantModel> getById(@PathVariable("catId") int vId){
-		ResponseEntity<VariantModel> result = null;
-		try {
-			VariantModel cat = this.service.getById(vId);
-			result = new ResponseEntity<VariantModel>(cat,HttpStatus.OK);
-		} catch (Exception e) {
-			log.debug(e.getMessage(), e);
-			result = new ResponseEntity<VariantModel>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-		return result;
-	}
+//	@RequestMapping(value="/api/variant/{catId}",method=RequestMethod.GET)
+//	public ResponseEntity<VariantModel> getById(@PathVariable("catId") int vId){
+//		ResponseEntity<VariantModel> result = null;
+//		try {
+//			VariantModel cat = this.service.getById(vId);
+//			result = new ResponseEntity<VariantModel>(cat,HttpStatus.OK);
+//		} catch (Exception e) {
+//			log.debug(e.getMessage(), e);
+//			result = new ResponseEntity<VariantModel>(HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
+//		return result;
+//	}
 	
 	@RequestMapping(value = "/api/variant/id/{varId}", method = RequestMethod.GET)
 	public ResponseEntity<List<VariantModel>> getByVarId(@PathVariable("varId") int poId) {

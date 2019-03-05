@@ -31,11 +31,7 @@
 		<access-denied-handler error-page="/403.html" />
 
 		<form-login login-page="/login.html"
-<<<<<<< HEAD
-			default-target-url="/" 
-=======
 			default-target-url="/choose-outlet" 
->>>>>>> 2a108cb5d90c2aee81e4c02f152012596f4efe85
 			username-parameter="username"
 			password-parameter="password"
 			login-processing-url="/j_spring_security_check"

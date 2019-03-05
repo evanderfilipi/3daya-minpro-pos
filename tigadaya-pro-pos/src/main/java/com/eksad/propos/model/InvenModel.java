@@ -11,14 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-<<<<<<< HEAD
-=======
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
->>>>>>> 2a108cb5d90c2aee81e4c02f152012596f4efe85
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -76,19 +72,11 @@ private Integer modifiedBy;
 @Column(name="modified_on")
 private Date modifiedOn;
 
-<<<<<<< HEAD
+
 @ManyToOne
 @JoinColumn(name="variant_id", updatable = false, insertable = false)
 private VariantModel variant;
 
-
-
-public VariantModel getVariant() {
-	return variant;
-}
-public void setVariant(VariantModel variant) {
-	this.variant = variant;
-=======
 @JsonIgnore
 @OneToMany(mappedBy="inventory")
 private List<PoDetailModel> listPoDetail;
@@ -98,6 +86,13 @@ private List<PoDetailModel> listPoDetail;
 private VariantModel variant_invent;
 
 
+public VariantModel getVariant() {
+	return variant;
+}
+public void setVariant(VariantModel variant) {
+	this.variant = variant;
+	
+}
 public VariantModel getVariant_invent() {
 	return variant_invent;
 }
@@ -115,7 +110,7 @@ public List<PoDetailModel> getListPoDetail() {
 }
 public void setListPoDetail(List<PoDetailModel> listPoDetail) {
 	this.listPoDetail = listPoDetail;
->>>>>>> 2a108cb5d90c2aee81e4c02f152012596f4efe85
+
 }
 public Integer getId() {
 	return id;

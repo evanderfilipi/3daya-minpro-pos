@@ -41,7 +41,6 @@ public class VariantDaoImpl implements VariantDao {
 	}
 
 	@Override
-<<<<<<< HEAD
 	public String getNewSku() {
 		Session session = sessionFactory.getCurrentSession();
 		String hql="select cd from VariantModel cd where cd.sku=(select max(sku)from VariantModel)";
@@ -60,8 +59,8 @@ public class VariantDaoImpl implements VariantDao {
 		return kodeBaru;
 		
 	}
-	}
-=======
+	
+
 	public List<VariantModel> getByVarId(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "select vm from VariantModel vm where vm.id=:id";
@@ -69,8 +68,20 @@ public class VariantDaoImpl implements VariantDao {
 		query.setParameter("id", id);
 		List<VariantModel> result = query.getResultList();
 		return result;
-	}}
->>>>>>> 2a108cb5d90c2aee81e4c02f152012596f4efe85
+	}
+
+	@Override
+	public VariantModel getById(Integer id) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "select ct from VariantModel ct where ct.id=:id";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", id);
+		VariantModel result = (VariantModel) query.getSingleResult();
+		return result;
+	}
+	
+}
+
 
 	
 	

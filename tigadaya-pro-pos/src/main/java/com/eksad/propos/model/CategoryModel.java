@@ -2,6 +2,7 @@ package com.eksad.propos.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,14 +14,10 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-<<<<<<< HEAD
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-=======
->>>>>>> 2a108cb5d90c2aee81e4c02f152012596f4efe85
 
 @Entity
 @Table(name="pos_mst_category")
@@ -53,16 +50,15 @@ public class CategoryModel {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
 	private Date modifiedOn;
 	
-<<<<<<< HEAD
+
 	@JsonIgnore
 	@OneToMany(mappedBy="category")
 	private List<ItemModel> itemModel;
 
-=======
+
 	@Column(name="active")
 	private Boolean active;
 	
->>>>>>> 2a108cb5d90c2aee81e4c02f152012596f4efe85
 	public Integer getId() {
 		return id;
 	}

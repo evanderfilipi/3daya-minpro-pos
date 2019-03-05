@@ -1,11 +1,8 @@
 package com.eksad.propos.model;
-
-
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,20 +13,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-<<<<<<< HEAD
-=======
 import javax.persistence.OneToOne;
->>>>>>> 2a108cb5d90c2aee81e4c02f152012596f4efe85
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-<<<<<<< HEAD
-=======
 import com.fasterxml.jackson.annotation.JsonManagedReference;
->>>>>>> 2a108cb5d90c2aee81e4c02f152012596f4efe85
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -75,7 +65,7 @@ public class VariantModel {
 	@Column(name="active")
 	private Boolean active;
 	
-<<<<<<< HEAD
+
 	@ManyToOne
 	@JoinColumn(name="item_id", updatable =false, insertable = false)
 	private ItemModel item;
@@ -97,11 +87,8 @@ public class VariantModel {
 	}
 	public void setListInven(List<InvenModel> listInven) {
 		this.listInven = listInven;
-=======
-	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	@JoinColumn(name="item_id", referencedColumnName="id", updatable=false, insertable=false)
-	@JsonManagedReference
-	private ItemModel item; 
+	}
+	
 	
 	/*@JsonIgnore
 	@OneToMany(mappedBy="variantInven")
@@ -137,7 +124,6 @@ public class VariantModel {
 	}
 	public void setListPoDetail(List<PoDetailModel> listPoDetail) {
 		this.listPoDetail = listPoDetail;
->>>>>>> 2a108cb5d90c2aee81e4c02f152012596f4efe85
 	}
 	public Integer getId() {
 		return id;
