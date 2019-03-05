@@ -1,6 +1,7 @@
 package com.eksad.propos.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
@@ -60,6 +62,14 @@ public class UserModel {
 	
 	@Column(name="active")
 	private Boolean active;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="userMod")
+	private List<OutletModel> listOutletUser;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="userModif")
+	private List<OutletModel> listOutletUserModif;
 	/*
 	@ManyToOne
 	@JoinColumn(name="role_id", nullable=false, updatable=false, insertable=false)
@@ -70,7 +80,24 @@ public class UserModel {
 	@JoinColumn(name="employee_id", nullable=false, updatable=false, insertable=false)
 	private EmployeeModel employee;
 	*/
+	
 
+	public List<OutletModel> getListOutletUser() {
+		return listOutletUser;
+	}
+
+	public List<OutletModel> getListOutletUserModif() {
+		return listOutletUserModif;
+	}
+
+	public void setListOutletUserModif(List<OutletModel> listOutletUserModif) {
+		this.listOutletUserModif = listOutletUserModif;
+	}
+
+	public void setListOutletUser(List<OutletModel> listOutletUser) {
+		this.listOutletUser = listOutletUser;
+	}
+	
 	public Integer getId() {
 		return id;
 	}

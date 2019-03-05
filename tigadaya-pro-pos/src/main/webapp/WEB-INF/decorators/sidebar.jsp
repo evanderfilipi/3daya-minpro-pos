@@ -46,7 +46,7 @@
 					<li><a href="${contextName}/item"><i class="fa fa-calendar "></i>
 							Item</a></li>
 					<li><a href="${contextName}/adjustment"><i class="fa fa-briefcase "></i>
-							Adjusment</a></li>
+							Adjustment</a></li>
 					<li><a href="${contextName}/pr"><i class="fa fa-retweet "></i>
 							Purchase Request</a></li>
 					<li><a href="${contextName}/po"><i class="fa fa-tasks "></i>

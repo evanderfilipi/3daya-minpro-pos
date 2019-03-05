@@ -183,6 +183,7 @@ function loadData(){
 
 $('#list-po').on('click','.btn-edit', function(){
 	var poId = $(this).val();
+	// this dalam js sebagai current context (context saat ini: btn-edit)
 	$.ajax({
 		url:'${contextName}/po/edit?id='+poId,
 		type:'get',
@@ -204,6 +205,7 @@ $('#list-po').on('click','.btn-edit', function(){
 $('#list-po').on('click','.btn-non-edit', function(){
 	alert("Purchase Order yang sudah di-reject tidak dapat di edit!")
 });
+
 
 $('#list-po').on('click','.btn-view', function(){
 	var poId = $(this).val();
@@ -303,23 +305,23 @@ function loadSupplier(sId){
 		type:'get',
 		// data type berupa JSON
 		dataType:'json',
-		success : function(dataApi){
+		success : function(dataSup){
 			$("#supplier").empty();
 			
 			var dataRow ='<tr>'+
-				'<td> '+dataApi.phone+' </td>'+
-				'<td colspan="2"> '+dataApi.email+' </td>'+
+				'<td> '+dataSup.phone+' </td>'+
+				'<td colspan="2"> '+dataSup.email+' </td>'+
 				'</tr> <tr>'+
-				'<td colspan="3"> '+dataApi.address+' </td>'+
+				'<td colspan="3"> '+dataSup.address+' </td>'+
 				'</tr> <tr>'+
-				'<td> '+dataApi.province.name+' </td>'+
-				'<td> '+dataApi.region.name+' </td>'+
-				'<td> '+dataApi.postalCode+' </td>'+
+				'<td> '+dataSup.province.name+' </td>'+
+				'<td> '+dataSup.region.name+' </td>'+
+				'<td> '+dataSup.postalCode+' </td>'+
 				'</tr>';
 			$("#supplier").append(dataRow);
-			$('#modal-data').find('#name-sup').val(dataApi.name);
+			$('#modal-data').find('#name-sup').val(dataSup.name);
 			
-			console.log(dataApi);
+			console.log(dataSup);
 		}
 	});
 }
@@ -332,28 +334,27 @@ function loadOutlet(oId, poNo, stat){
 		type:'get',
 		// data type berupa JSON
 		dataType:'json',
-		success : function(dataApi){
+		success : function(dataOut){
 			$("#outlet").empty();
 			
 			var dataRow ='<tr>'+
 				'<td><p>PO Number : '+poNo+' </p></td>'+
 				'</tr> <tr>'+
-				'<td><p>Created By : Evander Filipi</p></td>'+
+				'<td><p>Created By : '+dataOut.userMod.username+'</p></td>'+
 				'</tr> <tr>'+
-				'<td><p>Email : '+dataApi.email+' </p></td>'+
+				'<td><p>Email : '+dataOut.email+' </p></td>'+
 				'</tr> <tr>'+
-				'<td><p>Outlet : '+dataApi.name+' </p></td>'+
+				'<td><p>Outlet : '+dataOut.name+' </p></td>'+
 				'</tr> <tr>'+
-				'<td><p>Phone : '+dataApi.phone+' </p></td>'+
+				'<td><p>Phone : '+dataOut.phone+' </p></td>'+
 				'</tr> <tr>'+
-				'<td><p>Address : '+dataApi.address+' </p></td>'+
+				'<td><p>Address : '+dataOut.address+' </p></td>'+
 				'</tr> <tr>'+
 				'<td><p>Status : '+stat+' </p></td>'+
 				'</tr>';
 			$("#outlet").append(dataRow);
-			$('#modal-data').find('#name-sup').val(dataApi.name);
 			
-			console.log(dataApi);
+			console.log(dataOut);
 		}
 	});
 }

@@ -67,10 +67,10 @@
 			<div class="col-md-12">
 				<table id="item-table" class="table table-bordered">
 					<tr>
-						<th width="30%">Item</th>
+						<th width="28%">Item</th>
 						<th width="15%">In Stock</th>
 						<th width="10%">Qty</th>
-						<th width="25%">Unit Cost</th>
+						<th width="24%">Unit Cost</th>
 						<th>Sub Total</th>
 					</tr>
 					<c:forEach var="data" items="${pod}">

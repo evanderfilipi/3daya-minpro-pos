@@ -46,9 +46,14 @@ public class PurchaseOrderController extends BaseController {
 		List<SupplierModel> items = new ArrayList<SupplierModel>();
 		items = this.service3.getList();
 		
+		List<PoDetailModel> podm = this.service2.getByPoId(id);
+		// this. digunakan untuk mengganti current class (Purchase Order Controller)
+		// this. untuk mengakses atribut atau method
+		
 		// mengirim data dari controller ke view
 		model.addAttribute("pom", pom);
 		model.addAttribute("supl", items);
+		model.addAttribute("pod", podm);
 		
 		return "purchase_order/edit";
 	}

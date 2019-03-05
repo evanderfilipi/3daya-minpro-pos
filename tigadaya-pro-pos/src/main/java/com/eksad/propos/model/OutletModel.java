@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
@@ -73,6 +75,31 @@ public class OutletModel {
 	@JsonIgnore
 	@OneToMany(mappedBy="outlet")
 	private List<TsModel> listOutlet;
+	
+	@ManyToOne
+	@JoinColumn(name="created_by", updatable=false, insertable=false)
+	private UserModel userMod;
+	
+	@ManyToOne
+	@JoinColumn(name="modified_by", updatable=false, insertable=false)
+	private UserModel userModif;
+	
+
+	public UserModel getUserModif() {
+		return userModif;
+	}
+
+	public void setUserModif(UserModel userModif) {
+		this.userModif = userModif;
+	}
+
+	public UserModel getUserMod() {
+		return userMod;
+	}
+
+	public void setUserMod(UserModel userMod) {
+		this.userMod = userMod;
+	}
 
 	public Integer getId() {
 		return id;
