@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 
 import com.eksad.propos.dao.ItemDao;
+import com.eksad.propos.model.InvenModel;
 import com.eksad.propos.model.ItemModel;
 
 @Repository
@@ -64,4 +65,17 @@ public class ItemDaoImpl implements ItemDao {
 		query.setParameter("id", id);
 		ItemModel result = (ItemModel) query.getSingleResult();
 		return result;
+	}
+
+
+	@Override
+	public List<InvenModel> getInvenList() {
+		Session session = sessionFactory.getCurrentSession();
+		// HQl => Hibernate Query language
+		// Hibernate => ORM ( Object Relation Mapping )
+		String hql = "select ct from InvenModel ct";
+		Query query = session.createQuery(hql);
+		List<InvenModel> result = query.getResultList();
+		return result;
+	
 	}}

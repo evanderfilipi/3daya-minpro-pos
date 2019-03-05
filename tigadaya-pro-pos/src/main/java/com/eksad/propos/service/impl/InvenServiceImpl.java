@@ -27,8 +27,8 @@ public class InvenServiceImpl implements InvenService {
 		return this.dao.getList();
 	}
 	@Override
-	public InvenModel getById(Integer id) {
-		return this.dao.getById(id);
+	public InvenModel getByInvenId(Integer id) {
+		return this.dao.getByInvenId(id);
 	}
 }
 

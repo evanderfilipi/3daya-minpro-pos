@@ -2,17 +2,28 @@ package com.eksad.propos.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
+//berguna untuk menandai bahwa kelas tersebut adalah sebuah kelas entity/entitas
 @Table(name = "pos_mst_item")
+//table berguna untuk merujuk ke database yg ada di pgadmin
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class ItemModel {
 	@Id
 	@Column(name="ID", columnDefinition="serial")
@@ -27,7 +38,7 @@ public class ItemModel {
 	private String name;
 	
 	@Column(name = "category_id")
-	private String categoryId;
+	private Integer categoryId;
 	
 	@Column(name = "created_by")
 	private Integer createdBy;
@@ -43,10 +54,31 @@ public class ItemModel {
 	
 	@Column(name= "active")
 	private Boolean active;
+	
+	
+	@ManyToOne
+	@JoinColumn(name="category_id", updatable= false, insertable=false)
+	private CategoryModel category;
+
+	@JsonIgnore
+	@OneToMany(mappedBy="item")
+	private List<VariantModel> listVariant;
+	
+	public List<VariantModel> getListVariant() {
+		return listVariant;
+	}
+
+
+	public void setListVariant(List<VariantModel> listVariant) {
+		this.listVariant = listVariant;
+		//this untuk menggantikan current class
+	}
+
 
 	public Integer getId() {
 		return id;
 	}
+	
 
 	public void setId(Integer id) {
 		this.id = id;
@@ -61,11 +93,11 @@ public class ItemModel {
 	}
 
 	
-	public String getCategoryId() {
+	public Integer getCategoryId() {
 		return categoryId;
 	}
 
-	public void setCategoryId(String categoryId) {
+	public void setCategoryId(Integer categoryId) {
 		this.categoryId = categoryId;
 	}
 
@@ -129,6 +161,16 @@ public class ItemModel {
 
 	public void setActive(Boolean active) {
 		this.active = active;
+	}
+
+
+	public CategoryModel getCategory() {
+		return category;
+	}
+
+
+	public void setCategory(CategoryModel category) {
+		this.category = category;
 	}
 	
 

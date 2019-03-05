@@ -3,21 +3,26 @@ package com.eksad.propos.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name="pos_mst_item_variant")
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id", scope=SupplierModel.class)
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id" )
 public class VariantModel {
 
 	
@@ -41,7 +46,7 @@ public class VariantModel {
 	@Column(name="price")
 	private Integer price;
 	
-	@Column(name="crated_by")
+	@Column(name="created_by")
 	private Integer createdBy;
 	
 	@Column(name="created_on")
@@ -56,6 +61,28 @@ public class VariantModel {
 	@Column(name="active")
 	private Boolean active;
 	
+	@ManyToOne
+	@JoinColumn(name="item_id", updatable =false, insertable = false)
+	private ItemModel item;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="variant")
+	private List<InvenModel> listInven;
+	
+	
+	
+	public ItemModel getItem() {
+		return item;
+	}
+	public void setItem(ItemModel item) {
+		this.item = item;
+	}
+	public List<InvenModel> getListInven() {
+		return listInven;
+	}
+	public void setListInven(List<InvenModel> listInven) {
+		this.listInven = listInven;
+	}
 	public Integer getId() {
 		return id;
 	}

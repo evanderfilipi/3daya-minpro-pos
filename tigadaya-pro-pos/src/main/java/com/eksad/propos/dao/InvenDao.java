@@ -6,5 +6,7 @@ public interface InvenDao {
 	
 	public List<InvenModel> getList();
 	public void insert(InvenModel model);
-	public InvenModel getById(Integer id);
+	//model berfungsi untuk mengirim nilai ke view item
+	public InvenModel getByInvenId(Integer id);
+	//methodnya getbyinvenid
 }

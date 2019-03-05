@@ -9,5 +9,6 @@ public interface VariantDao {
 	
 	public List<VariantModel> getList();
 	public void insert(VariantModel model);
-	public VariantModel getById(Integer id);
+	public VariantModel getByItemId(Integer id);
+	public String getNewSku();
 }

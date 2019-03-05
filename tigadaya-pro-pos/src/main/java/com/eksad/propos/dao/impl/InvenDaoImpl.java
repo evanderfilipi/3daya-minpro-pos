@@ -31,7 +31,7 @@ public class InvenDaoImpl implements InvenDao {
 	}
 
 	@Override
-	public InvenModel getById(Integer id) {
+	public InvenModel getByInvenId(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "select ct from InvenModel ct where ct.id=:id";
 		Query query = session.createQuery(hql);

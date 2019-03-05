@@ -51,7 +51,7 @@
 		</table>
 	</div>	
 	<div class="box-footer">
-		<button type="button" class="btn btn-success pull-left" onClick="editData($('#form-edit'))">update</button>
+		<button type="button" class="btn btn-success pull-left" onClick="editData($('#form-edit'))">Update</button>
 		<button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
 	</div>
 </div>

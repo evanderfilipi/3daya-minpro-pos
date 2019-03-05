@@ -12,33 +12,42 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.eksad.propos.model.InvenModel;
 import com.eksad.propos.model.ItemForm;
 import com.eksad.propos.model.ItemModel;
+import com.eksad.propos.model.VariantModel;
+import com.eksad.propos.service.InvenService;
 import com.eksad.propos.service.ItemService;
+import com.eksad.propos.service.VariantService;
 
 @Controller
 public class ApiItemController {
 	private Log log = LogFactory.getLog(getClass());
 	@Autowired
 	private ItemService service;
+	@Autowired
+	private VariantService servicevar;
+	@Autowired
+	private InvenService invenservice;
 	
 	//tambah di dao, dao impl, service, service impl
 	@RequestMapping(value="/api/item", method=RequestMethod.GET)
-	public ResponseEntity<List<ItemModel>> list(){
+	public ResponseEntity<List<InvenModel>> list(){
 		log.debug("test");
-		//methoth list, retunt type responEntity,typedata refrest karna dibuat di dalam class
-		ResponseEntity<List<ItemModel>> result = null;
-		//try : mencoba
+		ResponseEntity<List<InvenModel>> result = null;
 		try {
-			List<ItemModel> list = this.service.getList();
-			result = new ResponseEntity<List<ItemModel>>(list, HttpStatus.OK);
-		//catch : menangkap
+			List<InvenModel> list = this.service.getListInven();
+			result = new ResponseEntity<List<InvenModel>>(list, HttpStatus.OK);
 		} catch (Exception e) {
 			log.debug(e.getMessage(),e);
-			result = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+			result = new ResponseEntity<List<InvenModel>>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}		
 		return result;
 	}
+	
+	
+	
 	
 	@RequestMapping(value="/api/item", method=RequestMethod.POST)
 	public ResponseEntity<ItemForm> postInsert(@RequestBody ItemForm item){
@@ -92,5 +101,31 @@ public class ApiItemController {
 		}
 		return result;
 	}
+	@RequestMapping(value="/api/variant/{catId}",method=RequestMethod.GET)
+	public ResponseEntity<VariantModel> getByItem(@PathVariable("catId") int vId){
+		ResponseEntity<VariantModel> result = null;
+		try {
+			VariantModel cat = this.servicevar.getByItemId(vId);
+			result = new ResponseEntity<VariantModel>(cat,HttpStatus.OK);
+		} catch (Exception e) {
+			log.debug(e.getMessage(), e);
+			result = new ResponseEntity<VariantModel>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return result;
+	}
+	
+	@RequestMapping(value="/api/inven/{catId}",method=RequestMethod.GET)
+	public ResponseEntity<InvenModel> getByvariantId(@PathVariable("catId") int vId){
+		ResponseEntity<InvenModel> result = null;
+		try {
+			InvenModel cat = this.invenservice.getByInvenId(vId);
+			result = new ResponseEntity<InvenModel>(cat,HttpStatus.OK);
+		} catch (Exception e) {
+			log.debug(e.getMessage(), e);
+			result = new ResponseEntity<InvenModel>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return result;
+	}
+	
 	
 	}

@@ -194,7 +194,7 @@
 				<li class="dropdown user user-menu"><a href="#"
 					class="dropdown-toggle" data-toggle="dropdown"> <img
 						src="${contextName}/resources/dist/img/java.jpg" class="user-image"
-						alt="User Image"> <span class="hidden-xs">Kelompok 1 - POS</span>
+						alt="User Image"> <span class="hidden-xs">${username }</span>
 				</a>
 					<ul class="dropdown-menu">
 						<!-- User image -->

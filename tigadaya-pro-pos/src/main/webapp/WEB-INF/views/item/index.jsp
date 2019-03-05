@@ -80,11 +80,11 @@
 				// looping data dengan jQuery
 				$.each(result, function(index, item){
 					var dataRow ='<tr>'+
-						'<td>'+ item.name +'</td>'+
-						'<td>'+ item.categoryId+'</td>'+
-						'<td>'+ item.price+'</td>'+
-						'<td>'+ item.inStock+'</td>'+
-						'<td>'+ item.stockAlert+'</td>'+
+						'<td>'+ item.variant.item.name +'</td>'+
+						'<td>'+ item.variant.item.category.name+'</td>'+
+						'<td>'+ item.variant.price+'</td>'+
+						'<td>'+ item.begining+'</td>'+
+						'<td>'+ item.alertAtQty+'</td>'+
 						'<td class="col-md-1"> '+
 						'<button type-"button" class="btn btn-edit btn-info btn-xs" value="'+item.id+'"><i class="fa fa-eye"></i>Edit</button>'+
 						'</td>'+
@@ -96,7 +96,6 @@
 			}
 		});
 	}
-		
 		
 		$("#btn-add").click(function(){
 			$.ajax({
@@ -111,23 +110,25 @@
 					//menampilkan modal pop up
 					$("#modal-form").modal('show');
 					//menampilkan modal pop up
-					
 					loadCategory();
 				}
 			});
 		});
 		
 		
-		
-		
-		
-		
-		
 		function addData($form){
+			var name = $('#modal-data').find("#name").val();
+			var category = $('#modal-data').find("#categoryId").val();
+			var len = name.length;
+			var len2 = category.length;
+			if(len<1) {
+				alert('"Name" tidak boleh kosong');
+			} else if(len2<1){
+				alert('Pilih Category');
+			}else {
 			// memangil method getFormData dari file
 			// resources/dist/js/map-form-objet.js
 			var dataForm = $form.serializeJSON();
-			
 			$.ajax({
 				// url ke api/category/
 				url:'${contextName}/api/item',
@@ -147,8 +148,8 @@
 			});
 			console.log(dataForm);
 		}
+		}
 		
-
 		function loadCategory(){
 			$.ajax({
 				url:'${contextName}/api/category/',
@@ -191,8 +192,6 @@
 			});
 		}
 		
-		
-
 		function addVariant($variant){
 			$.ajax({
 				url:'${contextName}/item/variant',
@@ -206,12 +205,27 @@
 					//menampilkan modal pop up
 					$("#modal-cilik").modal('show');
 				} 
-			
-			});
-							
+			});			
 			}
 
 		function addDataVariant($product){
+			var name = $('#modal-bawah').find("#name").val();
+			var price = $('#modal-bawah').find("#price").val();
+			var begining = $('#modal-bawah').find("#begining").val();
+			var alertat = $('#modal-bawah').find("#alertAtQty").val();
+			var len = name.length;
+			var len2 = price.length;
+			var len3 = begining.length;
+			var len4 = alertat.length;
+			if(len <1 ){
+				alert('Variant Name harus diisi');
+			}else if(len2<1){
+				alert('Price Harus Diisi');
+			}else if(len3<1){
+				alert('Begining Harus Diisi');
+			}else if(len4<1){
+				alert('AlertAt harus Diisi');
+			}else{
 			var dataVariant = $product.serializeJSON();
 			var dataRow = '<tr>'+
 			'<td>'+
@@ -229,7 +243,7 @@
 			// hide modal
 			$("#modal-cilik").modal('hide');
 		}
-		
+		}
 		
 		function getData(dataId){
 			// panggil API
@@ -243,7 +257,6 @@
 					$('#modal-data').find('#id').val(dataApi.id);
 					$('#modal-data').find('#name').val(dataApi.name);
 					$('#modal-data').find('#categoryId').val(dataApi.categoryId);
-					
 					console.log(dataApi);
 				}
 			});
@@ -262,15 +275,21 @@
 					$("#modal-data").html(result);
 					//menampilkan modal pop up
 					$("#modal-form").modal('show');
-					// panggil method getData		
-					
+					// panggil method getData	
 					loadCategory();
 					getData(vid);
+					getDataInven(vid);
+					//getDataVariant(vid);
 				}
 			});
 		});
 
 		function editData($form){
+			var name = $('#modal-data').find("#name").val();
+			var len = name.length
+			if(len<1){
+				alert('Nama Harus diisi');
+			}else{
 			// memangil method getFormData dari file
 			// resources/dist/js/map-form-objet.js
 			var dataForm = $form.serializeJSON();
@@ -288,12 +307,39 @@
 					//menutup modal
 					$("#modal-form").modal('hide');
 					// panggil method load data, untuk melihat data terbaru
-					
 					loadData();
-					
 				}
 			});
 			console.log(dataForm);
+		}
+		}
+		
+		function getDataInven(dataId){
+			// panggil API
+			$.ajax({
+				// url ke api/purchaseorder/
+				url:'${contextName}/api/inven/'+dataId,
+				type:'get',
+				// data type berupa JSON
+				dataType:'json',
+				success : function(dataApiDetail){
+					$("#list-variant").empty();
+					
+					
+					var dataRow ='<tr>'+
+						'<td> '+dataApiDetail.variant.name+'</td>'+
+						'<td> '+dataApiDetail.variant.price+'</td>'+
+						'<td> '+dataApiDetail.variant.sku+'</td>'+
+						'<td> '+dataApiDetail.alertAtQty+'</td>'+
+						'<td> '+dataApiDetail.begining+'</td>'+
+						
+						'</tr;>'
+					$('#list-variant').append(dataRow);
+					//$('#modal-data').find('#name').val(dataApiDetail.name);
+					
+					console.log(dataApi);
+				}
+			});
 		}
 		
 		

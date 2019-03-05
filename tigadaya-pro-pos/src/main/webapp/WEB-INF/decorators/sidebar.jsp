@@ -8,7 +8,7 @@
 					alt="User Image">
 			</div>
 			<div class="pull-left info">
-				<p>Kelompok 1 - POS</p>
+				<p>${username }</p>
 				<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
 			</div>
 		</div>
@@ -43,7 +43,7 @@
 							Supplier</a></li>
 					<li><a href="${contextName}/outlet"><i class="fa fa-paperclip "></i>
 							Outlet</a></li>
-					<li><a href="#"><i class="fa fa-calendar "></i>
+					<li><a href="${contextName}/item""><i class="fa fa-calendar "></i>
 							Item</a></li>
 					<li><a href="${contextName}/ts"><i class="fa fa-paperclip "></i>
 							Transfer Stock</a></li>	

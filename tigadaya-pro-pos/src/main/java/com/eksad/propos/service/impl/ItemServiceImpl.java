@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import com.eksad.propos.dao.InvenDao;
 import com.eksad.propos.dao.ItemDao;
 import com.eksad.propos.dao.VariantDao;
@@ -19,7 +18,9 @@ import com.eksad.propos.service.ItemService;
 @Service
 @Transactional
 public class ItemServiceImpl implements ItemService {
-
+//anotasi transacsional merollback transaksi yang gagal
+	
+	//@Autowired digunakan untuk menginjeksikan session yang akan dipanggil 
 	@Autowired
 	private ItemDao dao;
 
@@ -40,28 +41,35 @@ public class ItemServiceImpl implements ItemService {
 		io.setActive(true);
 		this.dao.insert(io);
 
+		Integer idi = io.getId();
+
 		if (model.getVm() != null) {
 			for (VariantModel detail : model.getVm()) {
-				detail.setId(io.getId());
+				detail.setItemId(idi);
 				detail.setActive(true);
+				detail.setCreatedBy(1);
 				detail.setModifiedBy(1);
 				this.daoad.insert(detail);
+
+				Integer ivi = detail.getId();
+
+				if (model.getIm() != null) {
+					for (InvenModel inven : model.getIm()) {
+						inven.setId(io.getId());
+						inven.setVariantId(ivi);
+						inven.setOutletId(1);
+						inven.setPurchaseQty(1);
+						inven.setSalesOrderQty(1);
+						inven.setTransferStockQty(1);
+						inven.setAdjustmentQty(1);
+						inven.setEndingQty(1);
+						this.daoin.insert(inven);
+					}
+				}
 			}
+
 		}
 
-		if (model.getIm() != null) {
-			for (InvenModel inven : model.getIm()) {
-				inven.setId(io.getId());
-				inven.setVariantId(1);
-				inven.setOutletId(1);
-				inven.setPurchaseQty(1);
-				inven.setSalesOrderQty(1);
-				inven.setTransferStockQty(1);
-				inven.setAdjustmentQty(1);
-				inven.setEndingQty(1);
-				this.daoin.insert(inven);
-			}
-		}
 	}
 
 	@Override
@@ -72,7 +80,7 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public void update(ItemModel model) {
 		this.dao.update(model);
-		
+
 	}
 
 	@Override
@@ -80,5 +88,10 @@ public class ItemServiceImpl implements ItemService {
 		return this.dao.getById(id);
 	}
 
+	@Override
+	public List<InvenModel> getListInven() {
+	
+		return this.dao.getInvenList();
 	}
 
+}

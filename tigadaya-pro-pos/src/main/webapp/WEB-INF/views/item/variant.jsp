@@ -20,7 +20,7 @@
 		<div class="col-md-4">
 			<div class="form-group">
 				<div class="col-md-12">
-					<input type="text" class="form-control" name="sku" id="sku" placeholder=" SKU " />
+					<input type="text" class="form-control" name="sku" id="sku" placeholder=" SKU " value="${kodeBaru }" readonly="readonly"/>
 				</div>
 			</div>
 		</div>
@@ -46,7 +46,7 @@
 			<div class="form-group">
 			
 				<div class="col-md-12">
-					<input type="text" class="form-control" name="alertAtQty" placeholder="Alert at" />
+					<input type="text" class="form-control" name="alertAtQty" id="alertAtQty" placeholder="Alert at" />
 				</div>
 			</div>
 		</div>

@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
@@ -67,6 +69,18 @@ private Integer modifiedBy;
 @Column(name="modified_on")
 private Date modifiedOn;
 
+@ManyToOne
+@JoinColumn(name="variant_id", updatable = false, insertable = false)
+private VariantModel variant;
+
+
+
+public VariantModel getVariant() {
+	return variant;
+}
+public void setVariant(VariantModel variant) {
+	this.variant = variant;
+}
 public Integer getId() {
 	return id;
 }
